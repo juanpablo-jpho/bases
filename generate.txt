@@ -1,0 +1,24 @@
+ionic g m home --routing
+ionic g c home/pages/home --spec=false
+ionic g c home/componentes/article --spec=false
+
+ionic g m shared 
+ionic g c shared/components/header --spec=false
+ionic g c shared/components/footer --spec=false
+
+ionic g m store --routing  
+ionic g c store/pages/store --spec=false
+ionic g c store/pages/product --spec=false
+ionic g c store/components/product-detail --spec=false
+
+ionic g m contact --routing 
+ionic g c contact/pages/contact --spec=false
+ionic g c contact/components/form-contact --spec=false
+
+ionic g m notifications --routing
+ionic g c notifications/pages/notifications --spec=false
+ionic g c notifications/components/detail-notification --spec=false
+ionic g c notifications/components/icon-notification --spec=false
+
+
+ionic g c shared/pages/not-found --spec=false
