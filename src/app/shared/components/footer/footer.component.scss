@@ -3,9 +3,20 @@
     bottom: 0px;
     width: 100%;
     border-top: 1px solid black;
+    display: flex;
+    padding: 10px 0px;
+    justify-content: center
 }
 
 h3 {
     text-align: center;
     font-style: italic;
+}
+
+.option-menu {
+    padding: 5px 10px;
+    margin: 0px 10px;
+    border: 1px solid #03A9F4;
+    border-radius: 5px;
+    background-color: #b3d1e8;
 }
