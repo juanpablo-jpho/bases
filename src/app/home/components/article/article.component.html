@@ -1,3 +1,30 @@
-<p>
-  article works!
-</p>
+<div class="articulo">
+  <!-- imagen -->
+  <div>
+    <img src="/assets/images/angular-logo.png" alt="logo angular">
+  </div>
+  <!-- titulo -->
+  <div class="articulo-titulo">
+    <h2>Título del artículo</h2>
+  </div>
+  <!-- contenido -->
+  <div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo minus aut repellendus id aspernatur? Officiis voluptas velit ex impedit deleniti obcaecati magnam atque, rem, voluptatum enim minima harum, corrupti assumenda.</p> 
+  </div>
+</div>
+
+@if (article) {
+    <div class="articulo">
+      <div>
+        <img [src]="article.image.url" [alt]="article.image.desc">
+      </div>
+      <div class="articulo-titulo">
+        <h2>{{article.title}}</h2>
+      </div>
+      <div>
+        <p>
+          {{article.description}}
+        </p>
+      </div>
+    </div>
+}
