@@ -4,8 +4,46 @@
   <app-header></app-header>
   
   <h1>Store</h1>
-  <app-product-detail></app-product-detail>
+
+    @if(!cargando) {
+
+        @for (item of items; track $index) {
+         
+          <div class="content-item">
+            <div>
+              <h3>{{item.name}}</h3>
+            </div>
+            <div>
+              <p>{{item.description}}</p>
+            </div>
+            @if (item.image) {
+              <div>
+                <img [src]="item.image" [alt]="item.name">
+              </div>
+            } @else {
+              <img src="/assets/images/default.webp">
+            }
+            <div>
+              <p>${{item.price}}</p>
+            </div>
+          </div>
+
+        } @empty {
+          <p>no hay articulos </p>
+
+        }
+
+    } 
+    @else {
+      <p style="text-align: center">cargando...</p>
+    }
+
+
+    <div style="margin: 60px"></div>
+
+  <!-- <app-product-detail></app-product-detail> -->
 
   <app-footer></app-footer>
 
 </ion-content>
+
