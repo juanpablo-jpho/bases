@@ -8,18 +8,21 @@
     <h2>Título del artículo</h2>
   </div>
   <!-- contenido -->
-  <div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo minus aut repellendus id aspernatur? Officiis voluptas velit ex impedit deleniti obcaecati magnam atque, rem, voluptatum enim minima harum, corrupti assumenda.</p> 
+  <div class="contenido">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla vitae, laudantium vero, rerum quibusdam amet incidunt explicabo ab unde dolore pariatur tempore. Recusandae excepturi suscipit, laudantium illum quisquam deserunt molestias!</p> 
   </div>
 </div>
 
-@if (article) {
+
+
+
+  @if (article) {
     <div class="articulo">
       <div>
         <img [src]="article.image.url" [alt]="article.image.desc">
       </div>
       <div class="articulo-titulo">
-        <h2>{{article.title}}</h2>
+        <h2>   {{article.title}}</h2>
       </div>
       <div>
         <p>
@@ -27,4 +30,5 @@
         </p>
       </div>
     </div>
-}
+  }
+

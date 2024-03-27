@@ -1,7 +1,7 @@
 
-export declare namespace ModelsHome {
-    
-    interface ArticuloI {
+export namespace ModelsHome {
+
+    export interface ArticuloI {
         title: string;
         description: string;
         image: {
@@ -10,5 +10,13 @@ export declare namespace ModelsHome {
         }
         id?: string;
     }
+    
+    export interface Interface2 {}
+    export interface Interface3 {}
+    export interface Interface4 {}
+    export interface Interface5 {}
 
 }
+
+
+

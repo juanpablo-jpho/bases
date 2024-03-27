@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Models } from 'src/app/models/models';
 
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent  implements OnInit {
-
-  article: Models.Home.ArticuloI;
   
-
+  article:any;
+  
   constructor() { 
-      this.loadArticulo();
+    this.loadArticulo();
+      
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   loadArticulo() {
-      const data = {
-        title: 'Angular aplications',
+      const data: any = {
+        title: 'Angular',
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo minus aut repellendus id aspernatur? Officiis voluptas velit ex impedit deleniti obcaecati magnam atque, rem, voluptatum enim minima harum, corrupti assumenda.',
         image: {
           url: '/assets/images/angular-logo.png',
@@ -32,3 +34,14 @@ export class ArticleComponent  implements OnInit {
 }
 
 
+
+
+// interface ArticuloI {
+//   title: string;
+//   description: string;
+//   image: {
+//       url: string;
+//       desc: string;
+//   }
+//   id?: string;
+// }

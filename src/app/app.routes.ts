@@ -24,8 +24,8 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
-    // loadComponent: () => import('./shared/pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
+    // redirectTo: '',
+    // pathMatch: 'full',
+    loadComponent: () => import('./shared/pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
   },
 ];

@@ -1,0 +1,19 @@
+.botton-back {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: aquamarine;
+}
+
+div h2 {
+    margin: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+.center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
