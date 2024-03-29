@@ -3,9 +3,15 @@
 
   <app-header></app-header>
   
-  <h1>Store</h1>
+  <h1 style="text-align:center">Store</h1>
 
     @if(!cargando) {
+
+      <div class="content-carrito">
+        @if (carrito) {
+          <p class="detalle-carrito">Cant: {{carrito.cantidadTotal}}  | Total: $ {{carrito.total.toFixed(2)}} </p> 
+        }
+      </div>
 
         @for (item of items; track $index) {
          
@@ -24,7 +30,14 @@
               <img src="/assets/images/default.webp">
             }
             <div>
-              <p>${{item.price}}</p>
+              <p style="text-align: end">
+                <strong>${{item.price}}</strong>  
+              </p>
+            </div>
+
+            <div style="text-align: end">
+              <button (click)="removeItem(item)"  class="button-remove">-</button>
+              <button (click)="addItem(item, $index)" class="button-add">+</button>
             </div>
           </div>
 
@@ -38,10 +51,19 @@
       <p style="text-align: center">cargando...</p>
     }
 
+    <div  style="margin: 60px"></div>
+
+    <div>
+      <input (keyup)="validateInput()" />
+    </div>
+    <div>
+      <input (keydown)="updateInput($event)" />
+    </div>
+
 
     <div style="margin: 60px"></div>
 
-  <!-- <app-product-detail></app-product-detail> -->
+  <app-product-detail></app-product-detail>
 
   <app-footer></app-footer>
 

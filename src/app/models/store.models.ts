@@ -11,7 +11,14 @@ export namespace ModelsStore {
     export interface Pedido {
         
     }
-    export interface Carrito {}
+    export interface Carrito {
+        total: number;
+        cantidadTotal: number;
+        items: {
+            item: Item;
+            cant: number;
+        }[]
+    }
 }
 
 
