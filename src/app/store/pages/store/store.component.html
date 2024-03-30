@@ -7,18 +7,12 @@
 
     @if(!cargando) {
 
-      <div class="content-carrito">
-        @if (carrito) {
-          <p class="detalle-carrito">Cant: {{carrito.cantidadTotal}}  | Total: $ {{carrito.total.toFixed(2)}} </p> 
-        }
-      </div>
+          <app-detail-carrito></app-detail-carrito>
 
         @for (item of items; track $index) {
 
-          <app-product-detail [item]="item" [index]="$index"
-   
-          ></app-product-detail>
-          <!-- (add)="addItem(item)" (remove)="removeItem(item)" -->
+          <app-product-detail [item]="item"></app-product-detail>
+
 
         } @empty {
           <p >no hay articulos </p>
@@ -32,12 +26,7 @@
 
     <div  style="margin: 60px"></div>
 
-    <div>
-      <input (keyup)="validateInput()" />
-    </div>
-    <div>
-      <input (keydown)="updateInput($event)" />
-    </div>
+
 
 
     <div style="margin: 60px"></div>

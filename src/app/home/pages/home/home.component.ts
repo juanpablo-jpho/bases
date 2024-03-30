@@ -1,7 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CarritoService } from 'src/app/services/carrito.service';
-import { DatabaseService } from 'src/app/services/database.service';
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -10,20 +7,10 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class HomeComponent  implements OnInit {
 
+  constructor() { }
 
-  private carritoService  = inject(CarritoService)
-
-
-  constructor(
-    private databaseService: DatabaseService
-    ) { }
-
-  ngOnInit() {
-    // this.databaseService.getData()
-    this.carritoService.getCarritoChanges().subscribe( changes => {
-      console.log('getCarritoChanges en home -> ', changes);
-    });
-  }
+  ngOnInit() {}
+  
 
 
 

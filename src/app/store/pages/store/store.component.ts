@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Models } from 'src/app/models/models';
-import { CarritoService } from 'src/app/services/carrito.service';
 import { DatabaseService } from 'src/app/services/database.service';
 
 
@@ -15,28 +14,15 @@ export class StoreComponent  implements OnInit {
   cargando: boolean = true;
   carrito: Models.Store.Carrito;
   cantidad: number;
-
   tituloPagina = 'Tienda';
-
-  private databaseService = inject(DatabaseService)
-  private carritoService  = inject(CarritoService)
 
   constructor() {
     this.loadItems();
   }
 
-  ngOnInit() {
-
-      this.carrito = this.carritoService.carrito;
-      this.carritoService.getCarritoChanges().subscribe( changes => {
-            console.log('getCarritoChanges en store -> ', changes);
-            this.carrito = changes;
-      });
-
-  }
+  ngOnInit() {}
 
   loadItems() {
-      this.databaseService.getData('items')
       setTimeout(() => {
         this.items = DataDemo;
         this.cargando = false;
@@ -44,32 +30,6 @@ export class StoreComponent  implements OnInit {
       }, 2000);
   }
 
-
-  addItem(item: Models.Store.Item) {
-      // this.carritoService.addItem(item);
-      // this.carrito = this.carritoService.carrito;
-  }
-
-  removeItem(item: Models.Store.Item) {
-      // this.carritoService.removeItem(item);
-      // this.carrito = this.carritoService.carrito;
-  }
-
-  onClick() {
-    console.log('onClick()');
-    
-  }
-
-
-  validateInput() {
-    console.log('validateInput()');
-    
-  }
-
-  updateInput(ev: any) {
-    console.log('updateInput -> ', ev);
-    
-  }
  
 }
 

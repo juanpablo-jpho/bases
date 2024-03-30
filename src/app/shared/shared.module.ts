@@ -4,13 +4,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { RouterModule } from '@angular/router';
+import { DetailCarritoComponent } from './components/detail-carrito/detail-carrito.component';
 
 
 
 @NgModule({
   declarations: [
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    DetailCarritoComponent
   ],
   imports: [
     CommonModule,
@@ -19,8 +21,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     FooterComponent,
-    HeaderComponent
-    
+    HeaderComponent,
+    DetailCarritoComponent
   ]
 })
 export class SharedModule { }
