@@ -1,12 +1,23 @@
-.producto {
+.content-item {
     margin: 10px;
-    border: 1px solid;
-    background: aliceblue;
     padding: 10px;
-    border-radius: 5px;
+    border: 1px solid black;
 }
 
-.producto button {
-    margin: 10px;
-    padding: 10px;
+.button-remove {
+    background: #ef6b6b;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #607D8B;
+    margin-right: 10px;
 }
+
+.button-add {
+    background: greenyellow;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #607D8B;
+}
+

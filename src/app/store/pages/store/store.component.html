@@ -1,9 +1,9 @@
 
 <ion-content>
 
-  <app-header></app-header>
+  <app-header [titulo]="tituloPagina"></app-header>
   
-  <h1 style="text-align:center">Store</h1>
+
 
     @if(!cargando) {
 
@@ -14,35 +14,14 @@
       </div>
 
         @for (item of items; track $index) {
-         
-          <div class="content-item">
-            <div>
-              <h3>{{item.name}}</h3>
-            </div>
-            <div>
-              <p>{{item.description}}</p>
-            </div>
-            @if (item.image) {
-              <div>
-                <img [src]="item.image" [alt]="item.name">
-              </div>
-            } @else {
-              <img src="/assets/images/default.webp">
-            }
-            <div>
-              <p style="text-align: end">
-                <strong>${{item.price}}</strong>  
-              </p>
-            </div>
 
-            <div style="text-align: end">
-              <button (click)="removeItem(item)"  class="button-remove">-</button>
-              <button (click)="addItem(item, $index)" class="button-add">+</button>
-            </div>
-          </div>
+          <app-product-detail [item]="item" [index]="$index"
+   
+          ></app-product-detail>
+          <!-- (add)="addItem(item)" (remove)="removeItem(item)" -->
 
         } @empty {
-          <p>no hay articulos </p>
+          <p >no hay articulos </p>
 
         }
 
@@ -63,7 +42,7 @@
 
     <div style="margin: 60px"></div>
 
-  <app-product-detail></app-product-detail>
+
 
   <app-footer></app-footer>
 

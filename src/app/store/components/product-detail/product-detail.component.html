@@ -1,13 +1,29 @@
-<!-- <p>
-  product-detail works!
-</p> -->
 
-<div class="producto">
-  <div>
-    <h3>Título del producto</h3>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora, nihil quo eveniet officiis veritatis culpa qui exercitationem, maxime aliquid provident accusantium at voluptate consequatur vitae, ab corrupti sit voluptatum voluptates!</p>
+@if (item) {
+  <div class="content-item">
+    <div>
+      <h3>{{item.name}}</h3>
+    </div>
+    <div>
+      <p>{{item.description}}</p>
+    </div>
+    @if (item.image) {
+      <div>
+        <img [src]="item.image" [alt]="item.name">
+      </div>
+    } @else {
+      <img src="/assets/images/default.webp">
+    }
+    <div>
+      <p style="text-align: end">
+        <strong>${{item.price}}</strong>  
+      </p>
+    </div>
+  
+    <div style="text-align: end">
+      <button (click)="removeItem()"  class="button-remove">-</button>
+      <span>{{cantidad}}</span> 
+      <button (click)="addItem()" class="button-add">+</button>
+    </div>
   </div>
-  <div style="text-align: end">
-    <button [routerLink]="['/store/item']" >view details</button>
-  </div>
-</div>
+}
