@@ -1,6 +1,6 @@
 
 @if (item) {
-  <div class="content-item">
+  <div class="content-item" [ngStyle]="{'background': color, 'border-radius': '10px'}">
     <div>
       <h3>{{item.name}}</h3>
     </div>

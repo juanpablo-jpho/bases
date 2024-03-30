@@ -12,7 +12,7 @@ export class FooterComponent  implements OnInit, OnDestroy {
   cant: number = 0;
   private carritoService  = inject(CarritoService);
 
-  subscriptionCarrito: Subscription
+  subscriptionCarrito: Subscription;
 
   constructor() { }
 

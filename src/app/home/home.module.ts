@@ -18,7 +18,7 @@ import { NotFoundComponent } from '../shared/pages/not-found/not-found.component
     HomeRoutingModule,
     IonContent,
     SharedModule,
-    NotFoundComponent
+    NotFoundComponent,
   ]
 })
 export class HomeModule { }

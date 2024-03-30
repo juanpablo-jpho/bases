@@ -10,6 +10,13 @@ export namespace ModelsHome {
         }
         id?: string;
     }
+
+    export interface ArticleI {
+        title: string;
+        body: string;
+        userId: number;
+        id?: number;
+    }
     
     export interface Interface2 {}
     export interface Interface3 {}

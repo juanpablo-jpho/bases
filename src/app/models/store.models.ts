@@ -7,6 +7,7 @@ export namespace ModelsStore {
         description: string;
         price: number;
         image?: string;
+        stock: number;
     }
     export interface Pedido {
         

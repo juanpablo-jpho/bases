@@ -5,18 +5,18 @@
   </div>
   <!-- titulo -->
   <div class="articulo-titulo">
-    <h2>Título del artículo</h2>
+    <h2>{{article.title}}</h2>
   </div>
   <!-- contenido -->
   <div class="contenido">
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla vitae, laudantium vero, rerum quibusdam amet incidunt explicabo ab unde dolore pariatur tempore. Recusandae excepturi suscipit, laudantium illum quisquam deserunt molestias!</p> 
+    <p>{{article.body}}</p> 
   </div>
 </div>
 
 
 
 
-  @if (article) {
+  <!-- @if (article) {
     <div class="articulo">
       <div>
         <img [src]="article.image.url" [alt]="article.image.desc">
@@ -30,5 +30,5 @@
         </p>
       </div>
     </div>
-  }
+  } -->
 

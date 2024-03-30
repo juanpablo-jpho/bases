@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Models } from 'src/app/models/models';
 
 
@@ -9,39 +9,13 @@ import { Models } from 'src/app/models/models';
 })
 export class ArticleComponent  implements OnInit {
   
-  article:any;
+  @Input() article: Models.Home.ArticleI;
   
-  constructor() { 
-    this.loadArticulo();
-      
-  }
+  constructor() {}
 
   ngOnInit() {
   }
 
-  loadArticulo() {
-      const data: any = {
-        title: 'Angular',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo minus aut repellendus id aspernatur? Officiis voluptas velit ex impedit deleniti obcaecati magnam atque, rem, voluptatum enim minima harum, corrupti assumenda.',
-        image: {
-          url: '/assets/images/angular-logo.png',
-          desc: 'logo de angular'
-        },
-      }
-      this.article = data;
-  }
+
 
 }
-
-
-
-
-// interface ArticuloI {
-//   title: string;
-//   description: string;
-//   image: {
-//       url: string;
-//       desc: string;
-//   }
-//   id?: string;
-// }
