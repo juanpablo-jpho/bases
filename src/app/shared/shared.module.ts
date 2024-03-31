@@ -7,23 +7,23 @@ import { RouterModule } from '@angular/router';
 import { DetailCarritoComponent } from './components/detail-carrito/detail-carrito.component';
 import { ShortPipe } from './pipes/short.pipe';
 
-
-
 @NgModule({
   declarations: [
     FooterComponent,
     HeaderComponent,
     DetailCarritoComponent,
+    ShortPipe
   ],
   imports: [
     CommonModule,
     NotificationsModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     FooterComponent,
     HeaderComponent,
-    DetailCarritoComponent
+    DetailCarritoComponent,
+    ShortPipe
   ]
 })
 export class SharedModule { }

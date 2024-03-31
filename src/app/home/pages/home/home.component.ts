@@ -26,7 +26,7 @@ export class HomeComponent  implements OnInit {
     const res = await this.webService.request<Models.Home.ArticleI[]>('GET', url, 'posts');
     console.log('data -> ', res);
     if (res) {
-        this.articles = res
+        this.articles = res;
         this.articles.forEach(article =>{
           article.time = new Date()
         });

@@ -10,18 +10,18 @@
   </div>
   <!-- titulo -->
   <div class="articulo-titulo">
-    <h2>{{article.title | titlecase}}</h2>
+    <h2>{{article.title | titlecase | short:'10'}}</h2>
   </div>
   <!-- contenido -->
   <div class="contenido">
-    <p>{{article.body}}</p> 
+    <p>{{article.body | short:'100'}}</p> 
   </div>
    <div>
-    <!-- <p>{{article.time}}</p> -->
+    <p>{{article.time | date:'yyyy:MM:dd' }}</p>
   </div>
-  <!-- <div>
-    <p>{{article | json }}</p>
-  </div>  -->
+  <div>
+    <!-- <p>{{article | json }}</p> -->
+  </div> 
 </div>
 
 

@@ -7,6 +7,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { FormContactComponent } from './components/form-contact/form-contact.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HighlightDirective } from '../shared/directives/highlight.directive';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     IonContent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HighlightDirective
   ]
 })
 export class ContactModule { }
