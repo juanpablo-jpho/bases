@@ -26,7 +26,10 @@ export class HomeComponent  implements OnInit {
     const res = await this.webService.request<Models.Home.ArticleI[]>('GET', url, 'posts');
     console.log('data -> ', res);
     if (res) {
-      this.articles = res;
+        this.articles = res
+        this.articles.forEach(article =>{
+          article.time = new Date()
+        });
     }
     this.cargando = false;
   }
@@ -42,6 +45,19 @@ export class HomeComponent  implements OnInit {
     const res = await this.webService.request<Models.Home.ArticleI>('POST', url, 'posts', data);
     console.log('data post -> ', res);
   }
+
+
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter HomeComponent');
+    
+  }
+
+  ionViewDidLeave() {
+    console.log('ionViewDidLeave HomeComponent');
+
+  }
+
   
 
 

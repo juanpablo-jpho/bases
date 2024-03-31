@@ -1,3 +1,92 @@
-<p>
-  form-contact works!
-</p>
+
+
+
+<p>{{error}}</p>
+
+<div class="content-form">
+  <div class="input-content">
+    <label>Email:</label>
+    <input type="mail" [(ngModel)]="form.email">
+  </div>
+  <div class="input-content">
+    <label>Nombre:</label>
+    <input type="text" [(ngModel)]="form.name">
+  </div>
+  <div class="input-content">
+    <label>Celular:</label>
+    <input  type="text" [(ngModel)]="form.phone">
+  </div>
+  
+  <div style="text-align: center">
+    <button (click)="enviar()"> Enviar </button>
+  </div>
+</div>
+
+<h2 style="text-align: center">Formulario Reactivo</h2>
+
+<div class="content-form">
+    <form [formGroup]="datosForm" (ngSubmit)="enviarForm()">
+    
+      <!-- email -->
+    <div class="input-content">
+      <label>Email</label>
+      <input placeholder="Email" formControlName="email">
+      <span 
+          *ngIf="datosForm.controls['email'].hasError('required')">
+        <i>Este campo es <strong>requerido</strong></i>  
+      </span>
+      <span style="text-align: end;"
+      *ngIf="datosForm.controls['email'].hasError('email')">
+      <i>Ingresa un email <strong>válido</strong></i>  
+      </span>
+
+    </div>
+
+    <!-- nombre -->
+    <div class="input-content">
+      <label>Nombre</label>
+      <input placeholder="Nombre" formControlName="name">
+      <span style="text-align: end;"
+          *ngIf="datosForm.controls['name'].hasError('required')">
+        <i>Este campo es <strong>requerido</strong></i>  
+      </span>
+    
+
+    </div>
+
+    <!-- celular -->
+    <div class="input-content">
+      <label>Celular</label>
+      <input readonly placeholder="091823737" formControlName="phone">
+      <span style="text-align: end;"
+          *ngIf="datosForm.controls['phone'].hasError('required')">
+        <i>Este campo es <strong>requerido</strong></i>  
+      </span>
+      <span style="text-align: end;"
+      *ngIf="datosForm.controls['phone'].hasError('mal')">
+    <i>Este esá mal</i>  
+  </span>
+    </div>
+      
+    <!-- enviar -->
+    <div style="text-align: center">
+      <button type="submit"
+          [disabled]="cargando">
+          <strong>Enviar</strong>
+      </button>
+    </div>
+    
+    
+    </form>
+</div>
+
+<div style="margin-bottom: 60px;"></div>
+
+
+
+<!-- <span style="text-align: end;"
+*ngIf="datosForm.controls['email'].hasError('email')">
+<i>Ingresa un email <strong>válido</strong></i>  
+</span> -->
+
+

@@ -1,16 +1,27 @@
-<div class="articulo">
+<div class="articulo" 
+(click)="gotoArticle()"
+
+>
+<!-- [routerLink]="['/home/article']"
+[queryParams]="{id: article.id}" -->
   <!-- imagen -->
   <div>
     <img src="/assets/images/angular-logo.png" alt="logo angular">
   </div>
   <!-- titulo -->
   <div class="articulo-titulo">
-    <h2>{{article.title}}</h2>
+    <h2>{{article.title | titlecase}}</h2>
   </div>
   <!-- contenido -->
   <div class="contenido">
     <p>{{article.body}}</p> 
   </div>
+   <div>
+    <!-- <p>{{article.time}}</p> -->
+  </div>
+  <!-- <div>
+    <p>{{article | json }}</p>
+  </div>  -->
 </div>
 
 

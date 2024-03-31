@@ -7,11 +7,13 @@ import { ArticleComponent } from './components/article/article.component';
 import { IonContent } from '@ionic/angular/standalone';
 import { SharedModule } from '../shared/shared.module';
 import { NotFoundComponent } from '../shared/pages/not-found/not-found.component';
+import { ArticlePageComponent } from './pages/article-page/article-page.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    ArticleComponent
+    ArticleComponent,
+    ArticlePageComponent
   ],
   imports: [
     CommonModule,

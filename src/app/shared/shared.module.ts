@@ -5,6 +5,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { RouterModule } from '@angular/router';
 import { DetailCarritoComponent } from './components/detail-carrito/detail-carrito.component';
+import { ShortPipe } from './pipes/short.pipe';
 
 
 
@@ -12,7 +13,7 @@ import { DetailCarritoComponent } from './components/detail-carrito/detail-carri
   declarations: [
     FooterComponent,
     HeaderComponent,
-    DetailCarritoComponent
+    DetailCarritoComponent,
   ],
   imports: [
     CommonModule,
