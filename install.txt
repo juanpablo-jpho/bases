@@ -1,0 +1,4 @@
+npm i @angular/fire firebase
+
+
+npm i @angular/fire@17.0.1 firebase@10.10.0

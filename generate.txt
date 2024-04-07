@@ -22,3 +22,11 @@ ionic g c notifications/components/icon-notification --spec=false
 
 
 ionic g c shared/pages/not-found --spec=false
+
+
+
+
+
+
+ionic g s firebase/firestore
+ng g s firebase/firestore

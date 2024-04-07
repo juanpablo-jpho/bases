@@ -17,6 +17,8 @@ export namespace ModelsHome {
         userId: number;
         id?: number;
         time?: Date;
+        name?: string;
+        content?: string;
     }
     
     export interface Interface2 {}

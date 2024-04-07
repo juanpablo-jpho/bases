@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { FirestoreService } from 'src/app/firebase/firestore.service';
 import { Models } from 'src/app/models/models';
 import { DatabaseService } from 'src/app/services/database.service';
 
@@ -16,8 +17,11 @@ export class StoreComponent  implements OnInit {
   cantidad: number;
   tituloPagina = 'Tienda';
 
+  private firestoreService = inject(FirestoreService);
+
   constructor() {
-    this.loadItems();
+    // this.loadItems();
+    this.consultar();
   }
 
   ngOnInit() {}
@@ -26,8 +30,55 @@ export class StoreComponent  implements OnInit {
       setTimeout(() => {
         this.items = DataDemo;
         this.cargando = false;
-        console.log('items -> ', this.items);      
+        // console.log('items -> ', this.items);      
       }, 2000);
+  }
+
+  async consultar() {
+    console.log('consultar()');
+    const path = 'Products';
+    let q: Models.Firebase.whereQuery[];
+    q = [['enable', '==', true]];
+
+    // q = query(refCollection, where('name', 'in', ['Hotdog', 'Fish']));
+    // q = [ ['name', 'in', ['Hotdog', 'Fish']]];
+
+    // q = query(refCollection, where("price", ">=", 10), where("price", "<=", 20));
+    // q = [ ["price", ">=", 0, "price", "<=", 6]];
+
+    // const q = query(refCollection, where("categories", 'array-contains-any', ['fastfood', 'Drinks']));
+    // q = [["categories", 'array-contains', 'fastfood']];
+    // q = [["categories", 'array-contains-any', ['fastfood', 'Drinks']]];
+    // q = [[ 'date'  ]]
+
+    const extras: Models.Firebase.extrasQuery = {
+      orderParam: 'date', 
+      directionSort: 'asc', 
+      limit: 2,
+    }
+
+    if (this.items) {
+      const last = this.items[ this.items.length - 1 ];
+      const snapDoc = await this.firestoreService.getDocument(`${path}/${last.id}`)
+      extras.startAfter = snapDoc
+    }
+
+    this.firestoreService.getDocumentsQueryChanges<Models.Store.Item>(path, q, extras).subscribe( res => {
+      console.log('res -> ', res);
+      if (this.items) {
+        res.forEach( itemNew => {
+            const exist = this.items.findIndex( item => { return item.id === itemNew.id})
+            if (exist >=0 ) {
+              this.items[exist] = itemNew
+            } else {
+              this.items.push(itemNew);
+            }
+        });
+      } else {
+        this.items = res;
+      }
+      this.cargando = false;
+    });
   }
 
  
@@ -41,7 +92,9 @@ const DataDemo: Models.Store.Item[] = [
     description: 'Con queso, salsas, papas',
     price: 7.50,
     image: '/assets/images/hamburguesa.webp',
-    stock: 0
+    stock: 0,
+    categories: [],
+    enable: true,
   },
   {
     id: '0002',
@@ -49,7 +102,9 @@ const DataDemo: Models.Store.Item[] = [
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero maxime asperiores ex quia, nostrum laboriosam recusandae ea eaque explicabo cupiditate iure quo omnis aliquid beatae soluta odit aliquam. Velit, voluptate.',
     price: 9.50,
     // image: '/assets/images/hamburguesa.webp'
-    stock: 0
+    stock: 0,
+    categories: [],
+    enable: true,
   },
   {
     id: '0003',
@@ -57,6 +112,8 @@ const DataDemo: Models.Store.Item[] = [
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero maxime asperiores ex quia, nostrum laboriosam recusandae ea eaque explicabo cupiditate iure quo omnis aliquid beatae soluta odit aliquam. Velit, voluptate.',
     price: 11.50,
     image: '/assets/images/hamburguesa.webp',
-    stock: 10
+    stock: 10,
+    categories: [],
+    enable: true,
   }
 ];

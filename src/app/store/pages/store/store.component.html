@@ -14,10 +14,15 @@
           <app-product-detail [item]="item"></app-product-detail>
 
 
+
         } @empty {
           <p >no hay articulos </p>
 
         }
+
+        <div style="text-align:center" >
+          <button (click)="consultar()" class="more">más</button>
+        </div>
 
     } 
     @else {
