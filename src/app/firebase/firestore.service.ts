@@ -14,7 +14,6 @@ export class FirestoreService {
   constructor() {
     console.log('FirestoreService');
     // this.getDocumentsQueryDemo();
-
   }
 
   // CRUD -> CREATE - READ - UPDATE - DELETE
@@ -340,7 +339,6 @@ export class FirestoreService {
     path: string, querys: Models.Firebase.whereQuery[], 
     extras: Models.Firebase.extrasQuery = Models.Firebase.defaultExtrasQuery) {
 
-      console.log('getDocumentsQueryChanges()');   
       let ref: any;
       if (!extras.group) {
         ref = collection(this.firestore, path);

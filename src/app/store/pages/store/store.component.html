@@ -9,6 +9,13 @@
 
           <app-detail-carrito></app-detail-carrito>
 
+          <div style="text-align: center;">
+            @for (categoria of categorias; track $index) {
+              <button class="categoria" [ngClass]="{'categoria-selected': categoria.id == categoriaSelected}"
+              (click)="getProductsByCategoria(categoria.id)">{{categoria.name}}</button>
+            }
+          </div>
+
         @for (item of items; track $index) {
 
           <app-product-detail [item]="item"></app-product-detail>
@@ -20,9 +27,11 @@
 
         }
 
-        <div style="text-align:center" >
-          <button (click)="consultar()" class="more">más</button>
-        </div>
+        @if (enableMore) {
+          <div style="text-align:center" >
+            <button (click)="getProductsByCategoria()" class="more">más</button>
+          </div>
+        }
 
     } 
     @else {

@@ -17,11 +17,17 @@ export class StoreComponent  implements OnInit {
   cantidad: number;
   tituloPagina = 'Tienda';
 
+  categorias = [{name: 'Fast Food', id: 'fastfood'}, 
+                {name: 'Drinks', id: 'Drinks'},
+                {name: 'Seafood', id: 'Seafood'}]
+  categoriaSelected: string = 'fastfood'; 
+  enableMore: boolean = true;             
+
   private firestoreService = inject(FirestoreService);
 
   constructor() {
     // this.loadItems();
-    this.consultar();
+    this.getProductsByCategoria();
   }
 
   ngOnInit() {}
@@ -65,6 +71,51 @@ export class StoreComponent  implements OnInit {
 
     this.firestoreService.getDocumentsQueryChanges<Models.Store.Item>(path, q, extras).subscribe( res => {
       console.log('res -> ', res);
+      if (this.items) {
+        res.forEach( itemNew => {
+            const exist = this.items.findIndex( item => { return item.id === itemNew.id})
+            if (exist >=0 ) {
+              this.items[exist] = itemNew
+            } else {
+              this.items.push(itemNew);
+            }
+        });
+      } else {
+        this.items = res;
+      }
+      this.cargando = false;
+    });
+  }
+
+  async getProductsByCategoria(id: string = this.categoriaSelected) {
+    if (this.categoriaSelected != id) {
+      this.items = null;
+      this.cargando = true;
+      this.enableMore = true
+    }
+    this.categoriaSelected = id
+    console.log('getProductsByCategoria -> ', id);
+    const path = 'Products';
+    const numItems = 2;
+    let q: Models.Firebase.whereQuery[];
+    q = [["categories", 'array-contains', id]];
+    const extras: Models.Firebase.extrasQuery = {
+      // orderParam: 'date', 
+      // directionSort: 'asc', 
+      limit: numItems,
+    }
+
+    if (this.items) {
+      const last = this.items[ this.items.length - 1 ];
+      const snapDoc = await this.firestoreService.getDocument(`${path}/${last.id}`)
+      extras.startAfter = snapDoc
+    }
+
+    this.firestoreService.getDocumentsQueryChanges<Models.Store.Item>(path, q, extras).subscribe( res => {
+      console.log('res -> ', res);
+      if (res.length < numItems) {
+        this.enableMore = false
+      }
       if (this.items) {
         res.forEach( itemNew => {
             const exist = this.items.findIndex( item => { return item.id === itemNew.id})
