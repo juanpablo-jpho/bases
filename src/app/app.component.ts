@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { FirestoreService } from './firebase/firestore.service';
 import { Models } from './models/models';
-import { arrayRemove, deleteField, increment } from '@angular/fire/firestore';
+import { arrayRemove, average, count, deleteField, increment, sum } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,7 @@ export class AppComponent {
     // this.getProduct();
     // this.getProducts();
     // this.consultar();
+    // this.getAggregate();
 
   }
 
@@ -160,6 +161,37 @@ export class AppComponent {
     this.firestoreService.getDocumentsQueryChanges<Models.Store.Item>(path, q, extras).subscribe( res => {
       console.log('res -> ', res);
     });
+  }
+
+  async getAggregate() {
+    console.log('getAggregate()');
+    // const path = 'Products';
+    const path = 'pedidos';
+    // const totalDocs = await this.firestoreService.getCount(path, true);
+    // console.log('total docs is -> ', totalDocs);
+
+    const totalStock = await this.firestoreService.getSum(path, 'stock');
+    // console.log('total stock is -> ', totalStock);
+
+    const averagePrice = await this.firestoreService.getAverage(path, 'price');
+    // console.log('average is -> ', averagePrice);
+
+    const aggregate = {
+      count: count(),
+      total: sum('total.envio'),
+      // average: average('stock')
+    };
+    let q: Models.Firebase.whereQuery[] = [[]]
+    const extras: Models.Firebase.extrasQuery = {
+      // orderParam: 'price', 
+      // directionSort: 'desc', 
+      // limit: 2,
+      group: true
+    }
+
+    const values = await this.firestoreService.getAggregations(path, aggregate, q, extras);
+    console.log('values -> ', values);
+    
   }
 
 

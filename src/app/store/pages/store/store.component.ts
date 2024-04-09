@@ -17,13 +17,19 @@ export class StoreComponent  implements OnInit {
   cantidad: number;
   tituloPagina = 'Tienda';
 
-  categorias = [{name: 'Fast Food', id: 'fastfood'}, 
+  private firestoreService = inject(FirestoreService);
+
+
+
+  categorias = [
+    {name: 'Fast Food', id: 'fastfood'}, 
                 {name: 'Drinks', id: 'Drinks'},
-                {name: 'Seafood', id: 'Seafood'}]
+                {name: 'Seafood', id: 'Seafood'}
+              ]
   categoriaSelected: string = 'fastfood'; 
   enableMore: boolean = true;             
 
-  private firestoreService = inject(FirestoreService);
+
 
   constructor() {
     // this.loadItems();
@@ -93,6 +99,8 @@ export class StoreComponent  implements OnInit {
       this.cargando = true;
       this.enableMore = true
     }
+
+
     this.categoriaSelected = id
     console.log('getProductsByCategoria -> ', id);
     const path = 'Products';
@@ -113,9 +121,10 @@ export class StoreComponent  implements OnInit {
 
     this.firestoreService.getDocumentsQueryChanges<Models.Store.Item>(path, q, extras).subscribe( res => {
       console.log('res -> ', res);
-      if (res.length < numItems) {
-        this.enableMore = false
-      }
+      // if (res.length < numItems) {
+      //   this.enableMore = false
+      // }
+
       if (this.items) {
         res.forEach( itemNew => {
             const exist = this.items.findIndex( item => { return item.id === itemNew.id})

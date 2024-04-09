@@ -10,6 +10,13 @@ import { CarritoService } from 'src/app/services/carrito.service';
 export class ProductDetailComponent  implements OnInit {
 
   @Input() item: Models.Store.Item
+
+
+
+
+
+
+  
   cantidad: number = 0;
   color: 'aliceblue' | '#fde2e2' | '#dfe7d6' = 'aliceblue';
 

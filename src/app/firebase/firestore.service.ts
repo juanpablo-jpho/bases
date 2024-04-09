@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Models } from '../models/models';
-import { Firestore, addDoc, and, collection, collectionData, deleteDoc, doc, docData, getDoc, getDocs, increment, limit, or, orderBy, query, serverTimestamp, setDoc, startAfter, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, and, average, collection, collectionData, count, deleteDoc, doc, docData, getAggregateFromServer, getCountFromServer, getDoc, getDocs, increment, limit, or, orderBy, query, serverTimestamp, setDoc, startAfter, sum, updateDoc, where } from '@angular/fire/firestore';
 import { DocumentSnapshot, QuerySnapshot, WhereFilterOp, collectionGroup } from 'firebase/firestore';
 
 @Injectable({
@@ -301,37 +301,8 @@ export class FirestoreService {
     extras: Models.Firebase.extrasQuery = Models.Firebase.defaultExtrasQuery) {
 
       console.log('getDocumentsQuery()');   
-      let ref: any;
-      if (!extras.group) {
-        ref = collection(this.firestore, path);
-      } else {
-        ref = collectionGroup(this.firestore, path);
-      }     
+      let q = this.getQuery(path, querys, extras)
 
-      let ors: any = [];
-      querys.forEach( (row) => {
-        let wheres: any = [];
-        for (let col = 0; col < row.length; col = col + 3) {
-          wheres.push(where(row[col], row[col + 1], row[col + 2]))
-        }
-        ors.push( and(...wheres) )
-      });
-      let q = query(ref, or(...ors))
-
-      // limit
-      if (extras.limit) {
-        q = query(q, limit(extras.limit))
-      } 
-
-      // orderBy 
-      if (extras.orderParam) {
-        q = query(q, orderBy(extras.orderParam, extras.directionSort))
-      } 
-
-      // startAfter
-      if (extras.startAfter) {
-        q = query(q, startAfter(extras.startAfter))
-      } 
       return await getDocs(q) as QuerySnapshot<tipo>;
   }
 
@@ -339,43 +310,7 @@ export class FirestoreService {
     path: string, querys: Models.Firebase.whereQuery[], 
     extras: Models.Firebase.extrasQuery = Models.Firebase.defaultExtrasQuery) {
 
-      let ref: any;
-      if (!extras.group) {
-        ref = collection(this.firestore, path);
-      } else {
-        ref = collectionGroup(this.firestore, path);
-      }     
-
-      // q = [
-      //       ['enable', '==', true, 'salty', '==', true], 
-      //       ['name', '==', 'Water']
-
-      //    ];
-      let ors: any = [];
-      querys.forEach( (row) => {
-        let wheres: any = [];
-        for (let col = 0; col < row.length; col = col + 3) {
-          wheres.push(where(row[col], row[col + 1], row[col + 2]))
-        }
-        const AND = and(...wheres) 
-        ors.push( AND )
-      });
-      let q = query(ref, or(...ors))
-
-      // limit
-      if (extras.limit) {
-        q = query(q, limit(extras.limit))
-      } 
-
-      // orderBy 
-      if (extras.orderParam) {
-        q = query(q, orderBy(extras.orderParam, extras.directionSort))
-      } 
-
-      // startAfter
-      if (extras.startAfter) {
-        q = query(q, startAfter(extras.startAfter))
-      } 
+      let q = this.getQuery(path, querys, extras)
       return collectionData(q) as Observable<tipo[]>;
   }
 
@@ -394,23 +329,81 @@ export class FirestoreService {
     return await getDocs(q) as QuerySnapshot<tipo>;
   }
         
+  async getCount(path: string, group: boolean = false) {
+    if (!group) {
+      const refCollection = collection(this.firestore, path);
+      let q = query(refCollection, where('enable', '==', true))
+      const snapshot = await getCountFromServer(q );
+      return snapshot.data().count
+    } else  {
+      const refCollectionGroup = collectionGroup(this.firestore, path)
+      let q = query(refCollectionGroup, where('user.id', '==', '8njXZ7n0GuhJyi1ysXO9'))
+      const snapshot = await getCountFromServer(q);
+      return snapshot.data().count
+    }
+  }
+
   
+  async getSum(path: string, field: string, group: boolean = false) {
+    let ref = group? collectionGroup(this.firestore, path) : collection(this.firestore, path);
+    const snapshot = await getAggregateFromServer(ref, {
+      total: sum(field)
+    });
+    return snapshot.data().total
+  }
 
-  // async count(path: string) {
-  //   // const refCollection = collection(this.firestore, path);
-  //   // const snapshot = await getCountFromServer(refCollection);
-  //   // console.log('snapshot -> ', snapshot);
-  //   // return snapshot.data().count
-  // }
+  async getAverage(path: string, field: string, group: boolean = false) {
+    let ref = group? collectionGroup(this.firestore, path) : collection(this.firestore, path);
+    const snapshot = await getAggregateFromServer(ref, {
+      total: average(field)
+    });
+    return snapshot.data().total
+  } 
 
-  // Use the sum() aggregation
-  // async sum(path: string, field: string) {
-    // const coll = collection(this.firestore, path);
-    // const snapshot = await getAggregateFromServer(coll, {
-    //   [field]: sum(field)
-    // });
-    // console.log('total: ', snapshot.data());
-  // }
+  async getAggregations(path: string, aggregate: any,  
+                        querys: Models.Firebase.whereQuery[] = [], 
+                        extras: Models.Firebase.extrasQuery = Models.Firebase.defaultExtrasQuery) {
+   
+    let q = this.getQuery(path, querys, extras)
+    const snapshot = await getAggregateFromServer(q, aggregate);
+    return snapshot.data()
+  }
+
+  private getQuery(path: string, querys: Models.Firebase.whereQuery[], extras: Models.Firebase.extrasQuery = Models.Firebase.defaultExtrasQuery) {
+   
+        let ref = extras.group? collectionGroup(this.firestore, path) : collection(this.firestore, path);
+     
+        let ors: any = [];
+        querys.forEach( (row) => {
+          let wheres: any = [];
+          for (let col = 0; col < row.length; col = col + 3) {
+            wheres.push(where(row[col], row[col + 1], row[col + 2]))
+          }
+          const AND = and(...wheres) 
+          ors.push( AND )
+        });
+        let q = query(ref, or(...ors))
+  
+        // limit
+        if (extras.limit) {
+          q = query(q, limit(extras.limit))
+        } 
+  
+        // orderBy 
+        if (extras.orderParam) {
+          q = query(q, orderBy(extras.orderParam, extras.directionSort))
+        } 
+  
+        // startAfter
+        if (extras.startAfter) {
+          q = query(q, startAfter(extras.startAfter))
+        } 
+
+        return q;
+    
+  }
+
+  
 }
 
 

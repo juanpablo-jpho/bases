@@ -3,18 +3,18 @@
 
   <app-header [titulo]="tituloPagina"></app-header>
   
+  <app-detail-carrito></app-detail-carrito>
+
+  <div style="text-align: center;">
+    @for (categoria of categorias; track $index) {
+      <button class="categoria" [ngClass]="{'categoria-selected': categoria.id == categoriaSelected}"
+      (click)="getProductsByCategoria(categoria.id)">{{categoria.name}}</button>
+    }
+  </div>
 
 
     @if(!cargando) {
 
-          <app-detail-carrito></app-detail-carrito>
-
-          <div style="text-align: center;">
-            @for (categoria of categorias; track $index) {
-              <button class="categoria" [ngClass]="{'categoria-selected': categoria.id == categoriaSelected}"
-              (click)="getProductsByCategoria(categoria.id)">{{categoria.name}}</button>
-            }
-          </div>
 
         @for (item of items; track $index) {
 
