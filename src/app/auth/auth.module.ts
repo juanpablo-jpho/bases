@@ -6,12 +6,14 @@ import { IonContent } from '@ionic/angular/standalone';
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistroComponent } from './pages/registro/registro.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,

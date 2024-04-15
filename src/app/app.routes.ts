@@ -22,7 +22,7 @@ export const routes: Routes = [
     loadChildren: () => import('./contact/contact.module').then((m) => m.ContactModule),
   },
   {
-    path: 'login',
+    path: 'user',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {

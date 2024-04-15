@@ -20,21 +20,11 @@
         }
         <p> <strong>Email:</strong> {{user.email}}</p>
         <p> <strong>Nombre:</strong> {{user.name}}</p>
-  
-        <div class="content-actualizar">
-          <p>Cambiar nombre de perfil:</p>
-          <div style="text-align: center">
-            <input type="text" [(ngModel)]="newName">
-          </div>
-          <p>Cambiar foto de perfil:</p>
-          <div style="text-align: center">
-            <input type="text" [(ngModel)]="newPhoto">
-          </div>
-          <div style="text-align: center">
-            <button (click)="actualizarPerfil()">Actualizar</button>
-          </div>
+
+        <div style="text-align: center">
+          <button [routerLink]="['/user/perfil']">ver perfil</button>
         </div>
-  
+    
       </div>
   
   
@@ -63,7 +53,7 @@
       </div>
       <div style="text-align: center">
         <p> ¿No tienes un usuario?</p>
-        <button class="registrarse" [routerLink]="['/login/registro']" >Registrarse</button>
+        <button class="registrarse" [routerLink]="['/user/registro']" >Registrarse</button>
       </div>
     }
   } @else {

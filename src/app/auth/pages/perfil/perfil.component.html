@@ -1,0 +1,69 @@
+<ion-content>
+
+  <div style="text-align: center;">
+    <p>PERFIL</p>
+  </div>
+
+  @if (!cargando) {
+    @if (user && userProfile) {
+      <div style="margin: 20px;">
+        <h3> <i>Bienvienido</i> </h3>
+        @if (user.photo) {
+          <div>
+            <img [src]="user.photo">
+          </div>
+        } @else {
+          <div>
+            <img src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg">
+          </div>
+          
+        }
+        <p> <strong>Email:</strong> {{user.email}}</p>
+        <p> <strong>Nombre:</strong> {{user.name}}</p>
+        <p> <strong>Edad:</strong> 
+          <input class="input-edad" type="number" [(ngModel)]="userProfile.age">
+          <button class="button-age" (click)="actualizarEdad()">guardar</button>
+        </p> 
+  
+        <div class="content-actualizar">
+          <p>Cambiar nombre de perfil:</p>
+          <div style="text-align: center">
+            <input type="text" [(ngModel)]="newName">
+          </div>
+          <p>Cambiar foto de perfil:</p>
+          <div style="text-align: center">
+            <input type="text" [(ngModel)]="newPhoto">
+          </div>
+          <div style="text-align: center">
+            <button (click)="actualizarPerfil()">Actualizar</button>
+          </div>
+        </div>
+  
+      </div>
+  
+  
+      
+  
+      <div style="text-align: right">
+        <button class="salir" (click)="salir()">Salir</button>
+      </div>
+
+    } 
+    @if (!user) {
+      <div style="text-align: center">
+        <button class="ingresar" [routerLink]="['/user/login']" >Ingresar</button>
+      </div>
+    }
+  } 
+  @else {
+    <div style="text-align: center;">
+      <p>cargando....</p>
+    </div>
+  }
+
+
+
+  
+
+
+</ion-content>
