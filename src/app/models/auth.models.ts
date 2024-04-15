@@ -10,4 +10,9 @@ export namespace ModelsAuth {
         password: string;
     }
 
+    export interface UpdateProfileI {
+        displayName?: string, 
+        photoURL?: string
+    }
+
 }

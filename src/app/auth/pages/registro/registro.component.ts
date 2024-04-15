@@ -14,6 +14,9 @@ export class RegistroComponent  implements OnInit {
   datosForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
     password: ['', Validators.required],
+    // name: ['', Validators.required],
+    // photo: ['', Validators.required],
+    // edad: [null, Validators.required],
   });
   cargando: boolean = false;
 

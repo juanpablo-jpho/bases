@@ -26,6 +26,10 @@
           <div style="text-align: center">
             <input type="text" [(ngModel)]="newName">
           </div>
+          <p>Cambiar foto de perfil:</p>
+          <div style="text-align: center">
+            <input type="text" [(ngModel)]="newPhoto">
+          </div>
           <div style="text-align: center">
             <button (click)="actualizarPerfil()">Actualizar</button>
           </div>
@@ -37,7 +41,7 @@
       
   
       <div style="text-align: right">
-        <button (click)="salir()">Salir</button>
+        <button class="salir" (click)="salir()">Salir</button>
       </div>
     } @else {
       <div class="content">
@@ -56,6 +60,10 @@
         <div style="text-align: center">
           <button (click)="login()">Login</button>
         </div>
+      </div>
+      <div style="text-align: center">
+        <p> ¿No tienes un usuario?</p>
+        <button class="registrarse" [routerLink]="['/login/registro']" >Registrarse</button>
       </div>
     }
   } @else {

@@ -16,6 +16,7 @@ export class LoginComponent  implements OnInit {
   user: {email: string, name: string, photo: string};
 
   newName: string = '';
+  newPhoto: string = '';
   cargando: boolean = false;
 
   constructor() { 
@@ -66,23 +67,24 @@ export class LoginComponent  implements OnInit {
   }
 
   async actualizarPerfil() {
-    if (this.newName) {
-      const data: any = {
-        // displayName: this.newName,
-        // photoURL: 'https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg'
-        displayName: '',
-        photoURL: ''
+      let data: Models.Auth.UpdateProfileI = {};
+      if (this.newName) {
+        data.displayName = this.newName
       }
+      if (this.newPhoto) {
+        data.photoURL = this.newPhoto
+      }
+      // data = { displayName: '', photoURL: ''}
+      // https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg'
+      // https://cdn.pixabay.com/photo/2021/01/04/10/37/icon-5887113_1280.png
       await this.authenticationService.updateProfile(data);
       const res = this.authenticationService.getCurrentUser()
       console.log('user -> ', res);
       this.user = {
         email: res.email,
         name: res.displayName,
-        photo: res.photoURL
+        photo: res.photoURL 
       }
-      
-    }
   }
 
 

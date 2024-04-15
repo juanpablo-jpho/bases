@@ -1,6 +1,7 @@
 .content {
-    margin: 20px;
-    margin-top: 30px;
+    margin: 15px;
+    border: 1px dotted #9E9E9E;
+    padding: 20px;
 }
 
 input {
@@ -14,7 +15,7 @@ button {
     background-color: aquamarine;
     border-radius: 5px;
     margin: 10px;
-    margin-top: 30px;
+    width: 50%;
 }
 
 img {
@@ -24,4 +25,12 @@ img {
 .content-actualizar {
     border: 1px solid #d7d8da;
     padding: 10px;
+}
+
+.registrarse {
+    background-color: #d7d8da;;
+}
+
+.salir {
+    width: unset ;
 }
