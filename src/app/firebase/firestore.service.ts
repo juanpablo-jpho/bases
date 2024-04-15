@@ -16,9 +16,14 @@ export class FirestoreService {
   constructor() { }
 
 //---| CREATE |---//
-  async createDocument<tipo>(path: string, data: tipo) {
-    const refCollection = collection(this.firestore, path)
-    const refDoc = doc(refCollection);
+  async createDocument<tipo>(path: string, data: tipo, id: string = null) {
+    let refDoc;
+    if (id) {
+      refDoc = doc(this.firestore, `${path}/${id}`);
+    } else {
+      const refCollection = collection(this.firestore, path)
+      refDoc = doc(refCollection);
+    }
     const dataDoc: any = data;
     dataDoc.id = refDoc.id;
     dataDoc.date = serverTimestamp();
