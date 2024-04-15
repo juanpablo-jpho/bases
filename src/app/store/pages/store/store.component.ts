@@ -12,17 +12,16 @@ import { DatabaseService } from 'src/app/services/database.service';
 export class StoreComponent  implements OnInit {
 
   items: Models.Store.Item[];
-  cargando: boolean = true;
+
   carrito: Models.Store.Carrito;
   cantidad: number;
   tituloPagina = 'Tienda';
 
   private firestoreService = inject(FirestoreService);
 
-
-
+  cargando: boolean = true;
   categorias = [
-    {name: 'Fast Food', id: 'fastfood'}, 
+                {name: 'Fast Food', id: 'fastfood'}, 
                 {name: 'Drinks', id: 'Drinks'},
                 {name: 'Seafood', id: 'Seafood'}
               ]
@@ -94,6 +93,7 @@ export class StoreComponent  implements OnInit {
   }
 
   async getProductsByCategoria(id: string = this.categoriaSelected) {
+
     if (this.categoriaSelected != id) {
       this.items = null;
       this.cargando = true;
@@ -121,21 +121,27 @@ export class StoreComponent  implements OnInit {
 
     this.firestoreService.getDocumentsQueryChanges<Models.Store.Item>(path, q, extras).subscribe( res => {
       console.log('res -> ', res);
-      // if (res.length < numItems) {
-      //   this.enableMore = false
-      // }
-
-      if (this.items) {
-        res.forEach( itemNew => {
-            const exist = this.items.findIndex( item => { return item.id === itemNew.id})
-            if (exist >=0 ) {
-              this.items[exist] = itemNew
-            } else {
-              this.items.push(itemNew);
+      if (res.length) {
+        if (res.length < numItems) {
+          this.enableMore = false
+        }
+  
+        if (this.items) {
+           res.forEach( itemNew => {
+              const isSameCategoria = itemNew.categories.find( categoria => { return this.categoriaSelected == categoria});
+              if (isSameCategoria) {            
+              const exist = this.items.findIndex( item => { return item.id === itemNew.id})
+              if (exist >=0 ) {
+                  this.items[exist] = itemNew
+              } else {
+                  this.items.push(itemNew);
+              }
             }
-        });
-      } else {
-        this.items = res;
+  
+          });
+        } else {
+          this.items = res;
+        }
       }
       this.cargando = false;
     });

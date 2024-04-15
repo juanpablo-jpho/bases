@@ -30,3 +30,13 @@ ionic g c shared/pages/not-found --spec=false
 
 ionic g s firebase/firestore
 ng g s firebase/firestore
+
+
+
+
+ionic g s firebase/authentication
+
+
+ionic g m auth --routing
+ionic g c auth/pages/login --spec=false
+ionic g c auth/pages/registro --spec=false

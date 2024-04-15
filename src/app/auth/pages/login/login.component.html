@@ -1,0 +1,72 @@
+<ion-content>
+
+  <div style="text-align: center;">
+    <p>LOGIN</p>
+  </div>
+
+  @if (!cargando) {
+    @if (user) {
+      <div style="margin: 20px;">
+        <h3> <i>Bienvienido</i> </h3>
+        @if (user.photo) {
+          <div>
+            <img [src]="user.photo">
+          </div>
+        } @else {
+          <div>
+            <img src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg">
+          </div>
+          
+        }
+        <p> <strong>Email:</strong> {{user.email}}</p>
+        <p> <strong>Nombre:</strong> {{user.name}}</p>
+  
+        <div class="content-actualizar">
+          <p>Cambiar nombre de perfil:</p>
+          <div style="text-align: center">
+            <input type="text" [(ngModel)]="newName">
+          </div>
+          <div style="text-align: center">
+            <button (click)="actualizarPerfil()">Actualizar</button>
+          </div>
+        </div>
+  
+      </div>
+  
+  
+      
+  
+      <div style="text-align: right">
+        <button (click)="salir()">Salir</button>
+      </div>
+    } @else {
+      <div class="content">
+        <div>
+          <p>Email:</p>
+          <div style="text-align: center">
+            <input type="text" [(ngModel)]="form.email">
+          </div>
+        </div>
+        <div>
+          <p>Contraseña:</p>
+          <div style="text-align: center">
+            <input type="password" [(ngModel)]="form.password">
+          </div>
+        </div>
+        <div style="text-align: center">
+          <button (click)="login()">Login</button>
+        </div>
+      </div>
+    }
+  } @else {
+    <div style="text-align: center;">
+      <p>cargando....</p>
+    </div>
+  }
+
+
+
+  
+
+
+</ion-content>

@@ -72,7 +72,7 @@ export class HomeComponent  implements OnInit {
     this.cargando = true;
     const url = 'https://jsonplaceholder.typicode.com';
     const res = await this.webService.request<Models.Home.ArticleI[]>('GET', url, 'posts');
-    console.log('data -> ', res);
+    // console.log('data -> ', res);
     if (res) {
         this.articles = res;
         this.articles.forEach(article =>{
