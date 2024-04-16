@@ -105,7 +105,10 @@
   
   
       </div>
-      <button class="button-gris" style="margin-left: 25px;" (click)="enableCambiarPassword =  true">cambiar contraseña</button>
+      <button class="button-gris" style="margin-left: 25px;" 
+        (click)="enableCambiarPassword =  true">
+        cambiar contraseña
+      </button>
       @if (enableCambiarPassword) {
         <div class="content-form">
           <form [formGroup]="formCambiarPassword" (ngSubmit)="cambiarPassword()">
@@ -167,7 +170,40 @@
           </form>
         </div>
       }
-  
+      <div>
+        <button class="button-gris" style="margin-left: 25px;" 
+          (click)="enableDeletePassword = true">
+          <strong>eliminar cuenta</strong> 
+        </button>
+      </div>
+      @if (enableDeletePassword) {
+        <div class="content-form">
+          <form [formGroup]="formDeleteUser" (ngSubmit)="eliminarCuenta()">
+          
+            <!-- password -->
+            <div class="input-content">
+              <label>Contraseña</label>
+              <input formControlName="password" type="password" minlength="6">
+              <span style="text-align: end;"
+                  *ngIf="formDeleteUser.controls['password'].hasError('required')">
+                <i>Este campo es <strong>requerido</strong></i>  
+              </span>
+            </div>
+      
+            <!-- enviar -->
+            <div style="text-align: center">
+              <button class="button-danger" type="submit">
+                  <strong>eliminar</strong>
+              </button>
+              <button class="button-gris" type="button">
+                <strong>cancelar</strong>
+              </button>
+            </div>        
+          
+          </form>
+        </div>
+      }
+     
       <div style="text-align: right">
         <button class="salir" (click)="salir()">Salir</button>
       </div>

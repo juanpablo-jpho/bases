@@ -51,6 +51,7 @@ export class RegistroComponent  implements OnInit {
           email: data.email
         }
         console.log('datosUser -> ', datosUser);
+        await this.authenticationService.reauthenticateWithCredential(data.password)
         await this.firestoreService.createDocument(Models.Auth.PathUsers, datosUser, res.user.uid);
         console.log('usuario creado con éxito');
         this.router.navigate(['/user/login'])

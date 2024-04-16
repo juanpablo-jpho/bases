@@ -27,6 +27,7 @@ export class PerfilComponent  implements OnInit {
     email: ['', [Validators.required, Validators.email]], 
     password: ['', [Validators.required]], 
   });
+
   enableActualizarEmail: boolean = false;
   correoVerificado: boolean = false;
 
@@ -48,6 +49,12 @@ export class PerfilComponent  implements OnInit {
     newPassword: ['', [Validators.required]], // Validators.pattern(Models.Auth.StrongPasswordRegx) 
     repetPassword: ['', [Validators.required, this.isSame]], 
   });
+
+
+  formDeleteUser = this.fb.group({
+    password: ['', [Validators.required]], 
+  });
+  enableDeletePassword: boolean = false;
 
 
 
@@ -186,6 +193,26 @@ export class PerfilComponent  implements OnInit {
         return {notSame: true}
     }  
     return {notSame: false};
+  }
+
+  async eliminarCuenta() {
+    // preguntar al usuario si está seguro de eliminar la cuenta
+    if (this.formDeleteUser.valid) {
+      try {
+        const data = this.formDeleteUser.value;
+        await this.authenticationService.reauthenticateWithCredential(data.password)
+        const user = this.authenticationService.getCurrentUser();
+        await this.firestoreService.deleteDocument(`${Models.Auth.PathUsers}/${user.uid}`)
+        await this.authenticationService.deleteUser();
+        console.log('cuenta eliminada con éxito');
+        await this.authenticationService.logout();
+        this.router.navigate(['/user/login'])
+      } catch (error) {
+        console.log('error al eliminar la cuenta -> ', error);
+  
+      }
+    }
+    
   }
 
 

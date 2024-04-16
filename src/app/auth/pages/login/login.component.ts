@@ -32,6 +32,7 @@ export class LoginComponent  implements OnInit {
             name: res.displayName,
             photo: res.photoURL
           }
+          console.log('user -> ', this.user);
         } else {
           this.user = null
         }
@@ -42,7 +43,18 @@ export class LoginComponent  implements OnInit {
   }
 
   ngOnInit() {
-    
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter login');
+     const user = this.authenticationService.getCurrentUser();
+     if (user) {
+        this.user = {
+          email: user.email,
+          name: user.displayName,
+          photo: user.photoURL
+        }
+     }
   }
 
   initForm() {
@@ -68,7 +80,6 @@ export class LoginComponent  implements OnInit {
   }
 
   async resetPassword() {
-    this.cargando = true;
     if (this.datosForm.valid) {
       const data = this.datosForm.value;
       console.log('valid -> ', data);
@@ -80,7 +91,6 @@ export class LoginComponent  implements OnInit {
         console.log('resetPassword error -> ', error);
       }
     }
-    this.cargando = false;
   }
 
 

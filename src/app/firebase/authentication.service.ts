@@ -4,7 +4,8 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
         sendEmailVerification,
       reauthenticateWithCredential, 
       EmailAuthProvider, verifyBeforeUpdateEmail,
-      updatePassword, sendPasswordResetEmail
+      updatePassword, sendPasswordResetEmail,
+      deleteUser
     } from '@angular/fire/auth';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class AuthenticationService {
 
   constructor() { 
     // this.logout();
-    this.auth.languageCode = 'es';
+    this.auth.languageCode = 'es';    
   }
 
   async createUser(email: string, password: string) {
@@ -71,6 +72,8 @@ export class AuthenticationService {
     return signOut(this.auth);
   }
 
-
+  deleteUser() {
+    return deleteUser(this.auth.currentUser);
+  }
 
 }
