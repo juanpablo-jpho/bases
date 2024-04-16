@@ -3,7 +3,8 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
         signOut, authState, updateProfile, updateEmail,
         sendEmailVerification,
       reauthenticateWithCredential, 
-      EmailAuthProvider, verifyBeforeUpdateEmail
+      EmailAuthProvider, verifyBeforeUpdateEmail,
+      updatePassword
     } from '@angular/fire/auth';
 
 @Injectable({
@@ -51,6 +52,10 @@ export class AuthenticationService {
 
   sendEmailVerification() {
     return sendEmailVerification(this.auth.currentUser)
+  }
+
+  updatePassword(newPasword: string) {
+    return updatePassword(this.auth.currentUser, newPasword)
   }
 
 

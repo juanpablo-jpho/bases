@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService } from '../../../firebase/authentication.service';
 import { Models } from 'src/app/models/models';
 import { FirestoreService } from 'src/app/firebase/firestore.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-perfil',
@@ -28,13 +28,32 @@ export class PerfilComponent  implements OnInit {
     password: ['', [Validators.required]], 
   });
   enableActualizarEmail: boolean = false;
-
   correoVerificado: boolean = false;
+
+  enableActualizarPerfil: boolean = false;
+
+  enableCambiarPassword: boolean = false;
+  visible: boolean = false;
+
+  isSame = (input: FormControl) => {
+    console.log('input -> ', input.value);
+    if (this.formCambiarPassword?.value?.newPassword != input?.value) {
+        return {notSame: true}
+    }  
+    return {};
+  }
+
+  formCambiarPassword = this.fb.group({
+    password: ['', [Validators.required]], 
+    newPassword: ['', [Validators.required]], // Validators.pattern(Models.Auth.StrongPasswordRegx) 
+    repetPassword: ['', [Validators.required, this.isSame]], 
+  });
+
+
 
 
   constructor(private fb: FormBuilder,
-              private router: Router,
-  ) { 
+              private router: Router) { 
     this.cargando = true;
     this.authenticationService.authState.subscribe( res => {
         console.log('res -> ', res);
@@ -142,6 +161,37 @@ export class PerfilComponent  implements OnInit {
     console.log('correo enviado -> comprueba tu correo',);
   }
 
+  async cambiarPassword() {
+    console.log('this.formCambiarPassword -> ', this.formCambiarPassword);
+    
+    if (this.formCambiarPassword.valid) {
+      const data = this.formCambiarPassword.value;
+      console.log('valid -> ', data);
+      try {
+        await this.authenticationService.reauthenticateWithCredential(data.password)
+        await this.authenticationService.updatePassword(data.newPassword);
+        this.enableCambiarPassword= false;
+        console.log('contraseña actualizada con éxito');
+      } catch (error) {
+        console.log('error al cambiar la contraseña -> ', error);
+      }
+    }
+  }
+
+  isEqual(input: FormControl) {
+    console.log('input -> ', input.value);
+    console.log('enableCambiarPassword -> ', this.enableCambiarPassword);
+    
+    if (this.formCambiarPassword?.value?.newPassword != input?.value) {
+        return {notSame: true}
+    }  
+    return {notSame: false};
+  }
+
+
+
   
 
 }
+
+

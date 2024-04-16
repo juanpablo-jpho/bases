@@ -20,7 +20,7 @@
         }
         <div>
           @if (correoVerificado) {
-            <span>correo verificado</span>
+            <span style="color: green;">correo verificado</span>
           } @else {
             <span>correo no verificado</span>
             <button class="button-age" (click)="enviarCorreo()">enviar correo de verificación</button>
@@ -80,25 +80,93 @@
           <input class="input-edad" type="number" [(ngModel)]="userProfile.age">
           <button class="button-age" (click)="actualizarEdad()">guardar</button>
         </p> 
+
+        
+        <button class="button-gris" (click)="enableActualizarPerfil =  true">
+          actualizar datos de perfil
+        </button>
+       
+        @if (enableActualizarPerfil) {
+          <div class="content-actualizar">
+            <p>Cambiar nombre de perfil:</p>
+            <div style="text-align: center">
+              <input type="text" [(ngModel)]="newName">
+            </div>
+            <p>Cambiar foto de perfil:</p>
+            <div style="text-align: center">
+              <input type="text" [(ngModel)]="newPhoto">
+            </div>
+            <div style="text-align: center">
+              <button (click)="actualizarPerfil()">Actualizar</button>
+              <button (click)="enableActualizarPerfil = false">Cancelar</button>
+            </div>
+          </div>
+        }
   
-        <div class="content-actualizar">
-          <p>Cambiar nombre de perfil:</p>
-          <div style="text-align: center">
-            <input type="text" [(ngModel)]="newName">
-          </div>
-          <p>Cambiar foto de perfil:</p>
-          <div style="text-align: center">
-            <input type="text" [(ngModel)]="newPhoto">
-          </div>
-          <div style="text-align: center">
-            <button (click)="actualizarPerfil()">Actualizar</button>
-          </div>
-        </div>
   
       </div>
-  
-  
-      
+      <button class="button-gris" style="margin-left: 25px;" (click)="enableCambiarPassword =  true">cambiar contraseña</button>
+      @if (enableCambiarPassword) {
+        <div class="content-form">
+          <form [formGroup]="formCambiarPassword" (ngSubmit)="cambiarPassword()">
+          
+            <!-- password -->
+            <div class="input-content">
+              <label>Contraseña actual</label>
+              <input formControlName="password" type="password" minlength="6">
+              <span style="text-align: end;"
+                  *ngIf="formCambiarPassword.controls['password'].hasError('required')">
+                <i>Este campo es <strong>requerido</strong></i>  
+              </span>
+            </div>
+
+            <!-- new password -->
+            <div class="input-content">
+              <label>Nueva contraseña</label>
+              <div class="new-password">
+                <input formControlName="newPassword" [type]=" visible ? 'text' : 'password'" minlength="6">
+                <button (click)="visible = !visible" type="button">
+                  {{ visible ? 'ocultar' : 'ver' }}
+                </button>
+              </div>
+              <span style="text-align: end;"
+                  *ngIf="formCambiarPassword.controls['newPassword'].hasError('required')">
+                <i>Este campo es <strong>requerido</strong></i>  
+              </span>
+              <span style="text-align: end;"
+                  *ngIf="formCambiarPassword.controls['newPassword'].hasError('pattern')">
+                <i>Debe tener al menos 1 mayuscula, 1 minuscula, un caracter especial, un número y mínimo 8 caracteres</i>  
+              </span>
+            </div>
+
+            <!-- repita la contraseña -->
+            <div class="input-content">
+              <label>Repita la contraseña</label>
+              <input formControlName="repetPassword" type="password" minlength="6">
+              <span style="text-align: end;"
+                  *ngIf="formCambiarPassword.controls['repetPassword'].hasError('required')">
+                <i>Este campo es <strong>requerido</strong></i>  
+              </span>
+              <span style="text-align: end;"
+                  *ngIf="formCambiarPassword.controls['repetPassword'].hasError('notSame')">
+                <i>Las contraseñas no <strong>coinciden</strong></i>  
+              </span>
+            </div>
+    
+            <!-- enviar -->
+            <div style="text-align: center">
+              <button (click)="enableCambiarPassword = false">
+                <strong>cancelar</strong>
+               </button>
+              <button type="submit"[disabled]="cargando">
+                  <strong>cambiar</strong>
+              </button>
+            </div>
+          
+          
+          </form>
+        </div>
+      }
   
       <div style="text-align: right">
         <button class="salir" (click)="salir()">Salir</button>

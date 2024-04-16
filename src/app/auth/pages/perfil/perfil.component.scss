@@ -8,6 +8,7 @@ input {
     padding: 15px;
     width: 90%;
     border-radius: 5px;
+    margin: 5px 0px 20px 0px;
 }
 
 .input-edad {
@@ -23,12 +24,19 @@ input {
     width: unset;
 }
 
+.button-gris {
+    padding: 10px;
+    background-color: #d7d8da;
+    border-radius: 5px;
+    margin: 10px;
+    width: unset;
+}
+
 button {
     padding: 10px;
     background-color: aquamarine;
     border-radius: 5px;
     margin: 10px;
-    width: 50%;
 }
 
 img {
@@ -53,3 +61,24 @@ img {
     border: 1px dotted #9E9E9E;
     padding: 20px;
 }
+
+span {
+    color: red;
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.new-password {
+    position: relative;
+
+    button {
+        background: aliceblue;
+        width: unset;
+        position: absolute;
+        right: 15%;
+        margin: 0px;
+        top: 15px;
+    }
+}
+
