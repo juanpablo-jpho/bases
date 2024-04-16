@@ -41,6 +41,7 @@ export class RegistroComponent  implements OnInit {
           displayName: data.name,
           photoURL: data.photo
         };
+        // https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg
         await this.authenticationService.updateProfile(profile);
         const datosUser: Models.Auth.UserProfile = {
           name: data.name,

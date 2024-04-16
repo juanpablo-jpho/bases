@@ -18,7 +18,63 @@
           </div>
           
         }
-        <p> <strong>Email:</strong> {{user.email}}</p>
+        <div>
+          @if (correoVerificado) {
+            <span>correo verificado</span>
+          } @else {
+            <span>correo no verificado</span>
+            <button class="button-age" (click)="enviarCorreo()">enviar correo de verificación</button>
+          }
+        </div>
+        <p style="margin: 0px"> <strong>Email:</strong> {{user.email}}
+            <button class="button-age" (click)="enableActualizarEmail = true">editar</button>
+        </p>
+       
+
+        @if (enableActualizarEmail) {
+          <div class="content-form">
+            <form [formGroup]="formNewEmail" (ngSubmit)="actualizarEmail()">
+            
+              <!-- email -->
+              <div class="input-content">
+                <label>Nuevo email</label>
+                <input placeholder="Email" formControlName="email">
+                <span 
+                    *ngIf="formNewEmail.controls['email'].hasError('required')">
+                  <i>Este campo es <strong>requerido</strong></i>  
+                </span>
+                <span style="text-align: end;"
+                *ngIf="formNewEmail.controls['email'].hasError('email')">
+                <i>Ingresa un email <strong>válido</strong></i>  
+                </span>
+        
+              </div>
+
+              <!-- password -->
+              <div class="input-content">
+                <label>Contraseña actual</label>
+                <input formControlName="password" type="password" minlength="6">
+                <span style="text-align: end;"
+                    *ngIf="formNewEmail.controls['password'].hasError('required')">
+                  <i>Este campo es <strong>requerido</strong></i>  
+                </span>
+              </div>
+      
+              <!-- enviar -->
+              <div style="text-align: center">
+                <button (click)="enableActualizarEmail = false">
+                  <strong>cancelar</strong>
+                 </button>
+                <button type="submit"[disabled]="cargando">
+                    <strong>actualizar</strong>
+                </button>
+              </div>
+            
+            
+            </form>
+          </div>
+        }
+
         <p> <strong>Nombre:</strong> {{user.name}}</p>
         <p> <strong>Edad:</strong> 
           <input class="input-edad" type="number" [(ngModel)]="userProfile.age">

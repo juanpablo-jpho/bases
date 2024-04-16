@@ -1,6 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
-        signOut, authState, updateProfile } from '@angular/fire/auth';
+        signOut, authState, updateProfile, updateEmail,
+        sendEmailVerification,
+      reauthenticateWithCredential, 
+      EmailAuthProvider, verifyBeforeUpdateEmail
+    } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +16,12 @@ export class AuthenticationService {
 
   constructor() { 
     // this.logout();
+    this.auth.languageCode = 'es';
   }
 
   async createUser(email: string, password: string) {
     const user = await createUserWithEmailAndPassword(this.auth, email, password);
+    await this.sendEmailVerification();
     return user;
   }
 
@@ -27,6 +33,26 @@ export class AuthenticationService {
      return updateProfile(this.auth.currentUser, data)
   }
 
+  updateEmail(email: string) {
+    return updateEmail(this.auth.currentUser, email)
+  }
+
+  verifyBeforeUpdateEmail(email: string) {
+    return verifyBeforeUpdateEmail(this.auth.currentUser, email)
+  }
+
+  reauthenticateWithCredential(password: string) {
+    const credential = EmailAuthProvider.credential(
+      this.auth.currentUser.email,
+      password
+    );
+    return reauthenticateWithCredential(this.auth.currentUser, credential)
+  }
+
+  sendEmailVerification() {
+    return sendEmailVerification(this.auth.currentUser)
+  }
+
 
   
 
@@ -35,7 +61,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    signOut(this.auth);
+    return signOut(this.auth);
   }
 
 

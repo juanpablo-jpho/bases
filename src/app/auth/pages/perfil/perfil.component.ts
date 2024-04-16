@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService } from '../../../firebase/authentication.service';
 import { Models } from 'src/app/models/models';
 import { FirestoreService } from 'src/app/firebase/firestore.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -21,7 +23,18 @@ export class PerfilComponent  implements OnInit {
   newAge: number = null;
   cargando: boolean = false;
 
-  constructor() { 
+  formNewEmail = this.fb.group({
+    email: ['', [Validators.required, Validators.email]], 
+    password: ['', [Validators.required]], 
+  });
+  enableActualizarEmail: boolean = false;
+
+  correoVerificado: boolean = false;
+
+
+  constructor(private fb: FormBuilder,
+              private router: Router,
+  ) { 
     this.cargando = true;
     this.authenticationService.authState.subscribe( res => {
         console.log('res -> ', res);
@@ -31,6 +44,7 @@ export class PerfilComponent  implements OnInit {
             name: res.displayName,
             photo: res.photoURL
           }
+          this.correoVerificado = res.emailVerified
           this.getDatosProfile(res.uid);
         } else {
           this.user = null
@@ -59,6 +73,7 @@ export class PerfilComponent  implements OnInit {
       // data = { displayName: '', photoURL: ''}
       // https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg'
       // https://cdn.pixabay.com/photo/2021/01/04/10/37/icon-5887113_1280.png
+      // https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg
       await this.authenticationService.updateProfile(data);
       const user = this.authenticationService.getCurrentUser();
       const updateData: any = {
@@ -93,6 +108,38 @@ export class PerfilComponent  implements OnInit {
     await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${user.uid}`, updateDoc)
     console.log('actualizado con éxito');
     
+  }
+
+  async actualizarEmail() {
+    if (this.formNewEmail.valid) {
+      const data = this.formNewEmail.value;
+      console.log('valid -> ', data);
+      try {
+        await this.authenticationService.reauthenticateWithCredential(data.password)
+        // await this.authenticationService.verifyBeforeUpdateEmail(data.email);
+        // await this.authenticationService.logout();
+        // this.router.navigate(['/user/login']);
+        // return
+
+        // await this.authenticationService.login(user.email, data.password)
+        await this.authenticationService.updateEmail(data.email);
+        const updateDoc: any = {
+          email: data.email
+        }
+        let user = this.authenticationService.getCurrentUser();
+        await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${user.uid}`, updateDoc);
+        this.enableActualizarEmail = false;
+        this.user.email = user.email;
+        console.log('actualizado correo con éxito');
+      } catch (error) {
+        console.log('error al actualizar el correo -> ', error);
+      }
+    }
+  }
+
+  async enviarCorreo() {
+    await this.authenticationService.sendEmailVerification();
+    console.log('correo enviado -> comprueba tu correo',);
   }
 
   
