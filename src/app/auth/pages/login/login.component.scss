@@ -15,7 +15,6 @@ button {
     background-color: aquamarine;
     border-radius: 5px;
     margin: 10px;
-    width: 50%;
 }
 
 img {
@@ -33,4 +32,17 @@ img {
 
 .salir {
     width: unset ;
+}
+
+.content-form {
+    margin: 15px;
+    border: 1px dotted #9E9E9E;
+    padding: 20px;
+}
+
+span {
+    color: red;
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
 }

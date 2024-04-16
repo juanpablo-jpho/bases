@@ -52,6 +52,47 @@
         </div>
       </div>
       <div style="text-align: center">
+        <p> ¿Olvidaste tu contraseña?</p>
+        <button class="registrarse" (click)="enableResetPassword = true">
+          Recuperar contraseña
+        </button>
+      </div>
+
+      @if (enableResetPassword) {
+        <div class="content-form">
+          <form [formGroup]="datosForm" (ngSubmit)="resetPassword()">
+        
+            <!-- email -->
+            <div class="input-content">
+              <label>Email</label>
+              <input placeholder="Email" formControlName="email">
+              <span 
+                  *ngIf="datosForm.controls['email'].hasError('required')">
+                <i>Este campo es <strong>requerido</strong></i>  
+              </span>
+              <span style="text-align: end;"
+              *ngIf="datosForm.controls['email'].hasError('email')">
+              <i>Ingresa un email <strong>válido</strong></i>  
+              </span>
+      
+            </div>
+      
+            <!-- enviar -->
+            <div style="text-align: center">
+              <button type="submit"[disabled]="cargando">
+                  <strong>enviar correo</strong>
+              </button>
+              <button type="button" (click)="enableResetPassword = false">
+               cancelar
+              </button>
+            </div>
+          
+          
+          </form>
+        </div>
+      }
+
+      <div style="text-align: center">
         <p> ¿No tienes un usuario?</p>
         <button class="registrarse" [routerLink]="['/user/registro']" >Registrarse</button>
       </div>

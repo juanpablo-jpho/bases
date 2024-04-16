@@ -4,7 +4,7 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
         sendEmailVerification,
       reauthenticateWithCredential, 
       EmailAuthProvider, verifyBeforeUpdateEmail,
-      updatePassword
+      updatePassword, sendPasswordResetEmail
     } from '@angular/fire/auth';
 
 @Injectable({
@@ -59,7 +59,9 @@ export class AuthenticationService {
   }
 
 
-  
+  sendPasswordResetEmail(email: string) {
+    return sendPasswordResetEmail(this.auth, email);
+  }
 
   async login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);

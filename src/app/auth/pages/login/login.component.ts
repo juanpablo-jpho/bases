@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService } from '../../../firebase/authentication.service';
 import { Models } from 'src/app/models/models';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,12 @@ export class LoginComponent  implements OnInit {
   user: {email: string, name: string, photo: string};
   cargando: boolean = false;
 
-  constructor() { 
+  datosForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]], 
+  });
+  enableResetPassword: boolean = false;
+
+  constructor(private fb: FormBuilder) { 
     this.initForm();
 
     this.cargando = true;
@@ -59,6 +65,22 @@ export class LoginComponent  implements OnInit {
 
   salir() {
     this.authenticationService.logout();
+  }
+
+  async resetPassword() {
+    this.cargando = true;
+    if (this.datosForm.valid) {
+      const data = this.datosForm.value;
+      console.log('valid -> ', data);
+      try {
+        await this.authenticationService.sendPasswordResetEmail(data.email)
+        this.enableResetPassword = false;
+        console.log('te hemos enviado un correo para reestablecer tu contraseña');
+      } catch (error) {
+        console.log('resetPassword error -> ', error);
+      }
+    }
+    this.cargando = false;
   }
 
 
