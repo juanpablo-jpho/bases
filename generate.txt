@@ -41,3 +41,5 @@ ionic g m auth --routing
 ionic g c auth/pages/login --spec=false
 ionic g c auth/pages/registro --spec=false
 ionic g c auth/pages/perfil --spec=false
+
+

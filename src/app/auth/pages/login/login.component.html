@@ -34,68 +34,94 @@
         <button class="salir" (click)="salir()">Salir</button>
       </div>
     } @else {
-      <div class="content">
-        <div>
-          <p>Email:</p>
-          <div style="text-align: center">
-            <input type="text" [(ngModel)]="form.email">
-          </div>
-        </div>
-        <div>
-          <p>Contraseña:</p>
-          <div style="text-align: center">
-            <input type="password" [(ngModel)]="form.password">
-          </div>
-        </div>
-        <div style="text-align: center">
-          <button (click)="login()">Login</button>
-        </div>
-      </div>
-      <div style="text-align: center">
-        <p> ¿Olvidaste tu contraseña?</p>
-        <button class="registrarse" (click)="enableResetPassword = true">
-          Recuperar contraseña
-        </button>
-      </div>
 
-      @if (enableResetPassword) {
-        <div class="content-form">
-          <form [formGroup]="datosForm" (ngSubmit)="resetPassword()">
-        
-            <!-- email -->
-            <div class="input-content">
-              <label>Email</label>
-              <input placeholder="Email" formControlName="email">
-              <span 
-                  *ngIf="datosForm.controls['email'].hasError('required')">
-                <i>Este campo es <strong>requerido</strong></i>  
-              </span>
-              <span style="text-align: end;"
-              *ngIf="datosForm.controls['email'].hasError('email')">
-              <i>Ingresa un email <strong>válido</strong></i>  
-              </span>
-      
-            </div>
-      
-            <!-- enviar -->
+      @if (!enableLoginWithEmailAndPassword) {
+          @for (provider of providers; track $index) {
+    
             <div style="text-align: center">
-              <button type="submit"[disabled]="cargando">
-                  <strong>enviar correo</strong>
-              </button>
-              <button type="button" (click)="enableResetPassword = false">
-               cancelar
+              <button (click)="loginWithProvider(provider)" 
+              [ngStyle]="{'background-color': provider.color, 'color': provider.textColor}">
+                {{provider.name}}
               </button>
             </div>
-          
-          
-          </form>
-        </div>
+    
+          }
       }
 
-      <div style="text-align: center">
-        <p> ¿No tienes un usuario?</p>
-        <button class="registrarse" [routerLink]="['/user/registro']" >Registrarse</button>
-      </div>
+      @if (enableLoginWithEmailAndPassword) {
+
+        <div style="text-align: center">
+          <button (click)="enableLoginWithEmailAndPassword = false" 
+          style="background-color: black; color: white">
+            Iniciar sesión con otro método
+          </button>
+        </div>
+
+          <div class="content">
+            <div>
+              <p>Email:</p>
+              <div style="text-align: center">
+                <input type="text" [(ngModel)]="form.email">
+              </div>
+            </div>
+            <div>
+              <p>Contraseña:</p>
+              <div style="text-align: center">
+                <input type="password" [(ngModel)]="form.password">
+              </div>
+            </div>
+            <div style="text-align: center">
+              <button (click)="login()">Login</button>
+            </div>
+          </div>
+          <div style="text-align: center">
+            <p> ¿Olvidaste tu contraseña?</p>
+            <button class="registrarse" (click)="enableResetPassword = true">
+              Recuperar contraseña
+            </button>
+          </div>
+    
+          @if (enableResetPassword) {
+            <div class="content-form">
+              <form [formGroup]="datosForm" (ngSubmit)="resetPassword()">
+            
+                <!-- email -->
+                <div class="input-content">
+                  <label>Email</label>
+                  <input placeholder="Email" formControlName="email">
+                  <span 
+                      *ngIf="datosForm.controls['email'].hasError('required')">
+                    <i>Este campo es <strong>requerido</strong></i>  
+                  </span>
+                  <span style="text-align: end;"
+                  *ngIf="datosForm.controls['email'].hasError('email')">
+                  <i>Ingresa un email <strong>válido</strong></i>  
+                  </span>
+          
+                </div>
+          
+                <!-- enviar -->
+                <div style="text-align: center">
+                  <button type="submit"[disabled]="cargando">
+                      <strong>enviar correo</strong>
+                  </button>
+                  <button type="button" (click)="enableResetPassword = false">
+                  cancelar
+                  </button>
+                </div>
+              
+              
+              </form>
+            </div>
+          }
+
+          <div style="text-align: center">
+            <p> ¿No tienes un usuario?</p>
+            <button class="registrarse" [routerLink]="['/user/registro']" >Registrarse</button>
+          </div>
+      }
+
+
     }
   } @else {
     <div style="text-align: center;">

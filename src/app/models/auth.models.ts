@@ -26,4 +26,13 @@ export namespace ModelsAuth {
         email: string;
     }
 
+    export interface ProviderLoginI {
+        name: string;
+        id: IdProviderLogin;
+        color: string;
+        textColor: string;
+    }
+
+    export type IdProviderLogin = 'password' | 'google' | 'facebook' | 'apple'
+
 }

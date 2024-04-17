@@ -204,6 +204,7 @@ export class PerfilComponent  implements OnInit {
         const user = this.authenticationService.getCurrentUser();
         await this.firestoreService.deleteDocument(`${Models.Auth.PathUsers}/${user.uid}`)
         await this.authenticationService.deleteUser();
+        
         console.log('cuenta eliminada con éxito');
         await this.authenticationService.logout();
         this.router.navigate(['/user/login'])

@@ -15,10 +15,27 @@ export class LoginComponent  implements OnInit {
   user: {email: string, name: string, photo: string};
   cargando: boolean = false;
 
+  enableLoginWithEmailAndPassword: boolean = false;
+
   datosForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
   });
   enableResetPassword: boolean = false;
+
+  providers: Models.Auth.ProviderLoginI[] = [ 
+    {
+        name: 'Iniciar sesión con Google',
+        id: 'google',
+        color: '#20a3df',
+        textColor: 'white'
+    },
+    {
+      name: 'Iniciar sesión con correo y contraseña',
+      id: 'password',
+      color: 'black',
+      textColor: 'white'
+    }
+  ] 
 
   constructor(private fb: FormBuilder) { 
     this.initForm();
@@ -55,6 +72,14 @@ export class LoginComponent  implements OnInit {
           photo: user.photoURL
         }
      }
+  }
+
+  loginWithProvider(provider: Models.Auth.ProviderLoginI) {
+    if (provider.id == 'password') {
+      this.enableLoginWithEmailAndPassword = true;
+      return;
+    }
+    this.authenticationService.loginWithProvider(provider.id)
   }
 
   initForm() {

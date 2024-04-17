@@ -4,78 +4,141 @@
     <p>REGISTRARSE</p>
   </div>
 
-  <div class="content-form">
-    <form [formGroup]="datosForm" (ngSubmit)="registrarse()">
+  @if (!iniciando) {
+
+    @if (completeRegistro) {
+      <div class="content-form">
+        <form [formGroup]="datosFormCompleteRegistro" (ngSubmit)="completarRegistro()">
+        
+          <!-- email -->
+          <div class="input-content">
+            <label>Email</label>
+            <input placeholder="Email" formControlName="email" readonly>
+          </div>
     
-      <!-- email -->
-      <div class="input-content">
-        <label>Email</label>
-        <input placeholder="Email" formControlName="email">
-        <span 
-            *ngIf="datosForm.controls['email'].hasError('required')">
-          <i>Este campo es <strong>requerido</strong></i>  
-        </span>
-        <span style="text-align: end;"
-        *ngIf="datosForm.controls['email'].hasError('email')">
-        <i>Ingresa un email <strong>válido</strong></i>  
-        </span>
-
+          <!-- nombre -->
+          <div class="input-content">
+            <label>Nombre</label>
+            <input formControlName="name" type="string">
+            <span style="text-align: end;"
+                *ngIf="datosFormCompleteRegistro.controls['name'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- edad -->
+          <div class="input-content">
+            <label>Edad</label>
+            <input formControlName="age" type="number">
+            <span style="text-align: end;"
+                *ngIf="datosFormCompleteRegistro.controls['age'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- foto -->
+          <div class="input-content">
+            <label>Foto</label>
+            <input formControlName="photo" type="string">
+            <span style="text-align: end;"
+                *ngIf="datosFormCompleteRegistro.controls['photo'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- enviar -->
+          <div style="text-align: center">
+            <button type="submit"[disabled]="cargando">
+                <strong>Completar registro</strong>
+            </button>
+          </div>
+        
+        
+        </form>
       </div>
 
-      <!-- password -->
-      <div class="input-content">
-        <label>Contraseña</label>
-        <input formControlName="password" type="password" minlength="6">
-        <span style="text-align: end;"
-            *ngIf="datosForm.controls['password'].hasError('required')">
-          <i>Este campo es <strong>requerido</strong></i>  
-        </span>
+    } @else {
+      <div class="content-form">
+        <form [formGroup]="datosForm" (ngSubmit)="registrarse()">
+        
+          <!-- email -->
+          <div class="input-content">
+            <label>Email</label>
+            <input placeholder="Email" formControlName="email">
+            <span 
+                *ngIf="datosForm.controls['email'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+            <span style="text-align: end;"
+            *ngIf="datosForm.controls['email'].hasError('email')">
+            <i>Ingresa un email <strong>válido</strong></i>  
+            </span>
+    
+          </div>
+    
+          <!-- password -->
+          <div class="input-content">
+            <label>Contraseña</label>
+            <input formControlName="password" type="password" minlength="6">
+            <span style="text-align: end;"
+                *ngIf="datosForm.controls['password'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- nombre -->
+          <div class="input-content">
+            <label>Nombre</label>
+            <input formControlName="name" type="string">
+            <span style="text-align: end;"
+                *ngIf="datosForm.controls['name'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- edad -->
+          <div class="input-content">
+            <label>Edad</label>
+            <input formControlName="age" type="number">
+            <span style="text-align: end;"
+                *ngIf="datosForm.controls['age'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- foto -->
+          <div class="input-content">
+            <label>Foto</label>
+            <input formControlName="photo" type="string">
+            <span style="text-align: end;"
+                *ngIf="datosForm.controls['photo'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- enviar -->
+          <div style="text-align: center">
+            <button type="submit"[disabled]="cargando">
+                <strong>Registrarse</strong>
+            </button>
+          </div>
+        
+        
+        </form>
       </div>
-
-      <!-- nombre -->
-      <div class="input-content">
-        <label>Nombre</label>
-        <input formControlName="name" type="string">
-        <span style="text-align: end;"
-            *ngIf="datosForm.controls['name'].hasError('required')">
-          <i>Este campo es <strong>requerido</strong></i>  
-        </span>
-      </div>
-
-      <!-- edad -->
-      <div class="input-content">
-        <label>Edad</label>
-        <input formControlName="age" type="number">
-        <span style="text-align: end;"
-            *ngIf="datosForm.controls['age'].hasError('required')">
-          <i>Este campo es <strong>requerido</strong></i>  
-        </span>
-      </div>
-
-      <!-- foto -->
-      <div class="input-content">
-        <label>Foto</label>
-        <input formControlName="photo" type="string">
-        <span style="text-align: end;"
-            *ngIf="datosForm.controls['photo'].hasError('required')">
-          <i>Este campo es <strong>requerido</strong></i>  
-        </span>
-      </div>
-
-      <!-- enviar -->
+    
       <div style="text-align: center">
-        <button type="submit"[disabled]="cargando">
-            <strong>Registrarse</strong>
-        </button>
+        <p> ¿Ya tienes un usuario?</p>
+        <button class="ingresar" [routerLink]="['/user/login']" >Ingresar</button>
       </div>
-    
-    
-    </form>
-  </div>
 
-  <div style="text-align: center">
-    <p> ¿Ya tienes un usuario?</p>
-    <button class="ingresar" [routerLink]="['/user/login']" >Ingresar</button>
-  </div>
+    }
+
+  } @else {
+    <div style="text-align: center">
+      <p>cargando...</p>
+    </div>
+  }
+
 
 </ion-content>
