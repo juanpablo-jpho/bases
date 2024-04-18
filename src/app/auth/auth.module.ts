@@ -7,13 +7,15 @@ import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { CompletarRegistroComponent } from './pages/completar-registro/completar-registro.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistroComponent,
-    PerfilComponent
+    PerfilComponent,
+    CompletarRegistroComponent
   ],
   imports: [
     CommonModule,

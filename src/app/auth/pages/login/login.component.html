@@ -8,31 +8,11 @@
     @if (user) {
       <div style="margin: 20px;">
         <h3> <i>Bienvienido</i> </h3>
-        @if (user.photo) {
-          <div>
-            <img [src]="user.photo">
-          </div>
-        } @else {
-          <div>
-            <img src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg">
-          </div>
-          
-        }
-        <p> <strong>Email:</strong> {{user.email}}</p>
-        <p> <strong>Nombre:</strong> {{user.name}}</p>
-
         <div style="text-align: center">
           <button [routerLink]="['/user/perfil']">ver perfil</button>
         </div>
-    
       </div>
   
-  
-      
-  
-      <div style="text-align: right">
-        <button class="salir" (click)="salir()">Salir</button>
-      </div>
     } @else {
 
       @if (!enableLoginWithEmailAndPassword) {
@@ -117,7 +97,7 @@
 
           <div style="text-align: center">
             <p> ¿No tienes un usuario?</p>
-            <button class="registrarse" [routerLink]="['/user/registro']" >Registrarse</button>
+            <button class="button-gris" [routerLink]="['/user/registro']" >Registrarse</button>
           </div>
       }
 

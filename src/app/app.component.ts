@@ -4,6 +4,7 @@ import { FirestoreService } from './firebase/firestore.service';
 import { Models } from './models/models';
 import { arrayRemove, average, count, deleteField, increment, sum } from '@angular/fire/firestore';
 import { AuthenticationService } from './firebase/authentication.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import { AuthenticationService } from './firebase/authentication.service';
 export class AppComponent {
 
   private firestoreService = inject(FirestoreService);
-  private  authenticationService: AuthenticationService = inject(AuthenticationService)
+  private  authenticationService: AuthenticationService = inject(AuthenticationService);
+  private userService: UserService = inject(UserService);
   
   constructor() {
     // this.saveProduct();

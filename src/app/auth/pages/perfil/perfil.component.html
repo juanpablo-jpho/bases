@@ -4,22 +4,21 @@
     <p>PERFIL</p>
   </div>
 
-  @if (!cargando) {
+  @if (!iniciando) {
     @if (user && userProfile) {
       <div style="margin: 20px;">
         <h3> <i>Bienvienido</i> </h3>
-        @if (user.photo) {
+        @if (user.photoURL) {
           <div>
-            <img [src]="user.photo">
+            <img [src]="user.photoURL">
           </div>
         } @else {
           <div>
             <img src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg">
-          </div>
-          
+          </div>  
         }
         <div>
-          @if (correoVerificado) {
+          @if (user.emailVerified) {
             <span style="color: green;">correo verificado</span>
           } @else {
             <span>correo no verificado</span>
@@ -49,16 +48,6 @@
                 </span>
         
               </div>
-
-              <!-- password -->
-              <div class="input-content">
-                <label>Contraseña actual</label>
-                <input formControlName="password" type="password" minlength="6">
-                <span style="text-align: end;"
-                    *ngIf="formNewEmail.controls['password'].hasError('required')">
-                  <i>Este campo es <strong>requerido</strong></i>  
-                </span>
-              </div>
       
               <!-- enviar -->
               <div style="text-align: center">
@@ -70,12 +59,11 @@
                 </button>
               </div>
             
-            
             </form>
           </div>
         }
 
-        <p> <strong>Nombre:</strong> {{user.name}}</p>
+        <p> <strong>Nombre:</strong> {{user.displayName}}</p>
         <p> <strong>Edad:</strong> 
           <input class="input-edad" type="number" [(ngModel)]="userProfile.age">
           <button class="button-age" (click)="actualizarEdad()">guardar</button>
@@ -107,25 +95,15 @@
       </div>
       <button class="button-gris" style="margin-left: 25px;" 
         (click)="enableCambiarPassword =  true">
-        cambiar contraseña
+        establecer contraseña
       </button>
       @if (enableCambiarPassword) {
         <div class="content-form">
           <form [formGroup]="formCambiarPassword" (ngSubmit)="cambiarPassword()">
           
-            <!-- password -->
-            <div class="input-content">
-              <label>Contraseña actual</label>
-              <input formControlName="password" type="password" minlength="6">
-              <span style="text-align: end;"
-                  *ngIf="formCambiarPassword.controls['password'].hasError('required')">
-                <i>Este campo es <strong>requerido</strong></i>  
-              </span>
-            </div>
-
             <!-- new password -->
             <div class="input-content">
-              <label>Nueva contraseña</label>
+              <label>Establecer contraseña</label>
               <div class="new-password">
                 <input formControlName="newPassword" [type]=" visible ? 'text' : 'password'" minlength="6">
                 <button (click)="visible = !visible" type="button">
@@ -172,38 +150,11 @@
       }
       <div>
         <button class="button-gris" style="margin-left: 25px;" 
-          (click)="enableDeletePassword = true">
+          (click)="eliminarCuenta()">
           <strong>eliminar cuenta</strong> 
         </button>
       </div>
-      @if (enableDeletePassword) {
-        <div class="content-form">
-          <form [formGroup]="formDeleteUser" (ngSubmit)="eliminarCuenta()">
-          
-            <!-- password -->
-            <div class="input-content">
-              <label>Contraseña</label>
-              <input formControlName="password" type="password" minlength="6">
-              <span style="text-align: end;"
-                  *ngIf="formDeleteUser.controls['password'].hasError('required')">
-                <i>Este campo es <strong>requerido</strong></i>  
-              </span>
-            </div>
-      
-            <!-- enviar -->
-            <div style="text-align: center">
-              <button class="button-danger" type="submit">
-                  <strong>eliminar</strong>
-              </button>
-              <button class="button-gris" type="button" (click)="enableDeletePassword = false">
-                <strong>cancelar</strong>
-              </button>
-            </div>        
-          
-          </form>
-        </div>
-      }
-     
+ 
       <div style="text-align: right">
         <button class="salir" (click)="salir()">Salir</button>
       </div>

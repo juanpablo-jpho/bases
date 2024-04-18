@@ -2,8 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService } from '../../../firebase/authentication.service';
 import { Models } from 'src/app/models/models';
 import { FirestoreService } from 'src/app/firebase/firestore.service';
-import { FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '@angular/fire/auth';
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -14,7 +16,7 @@ export class PerfilComponent  implements OnInit {
   authenticationService: AuthenticationService = inject(AuthenticationService);
   firestoreService:   FirestoreService = inject(  FirestoreService);
 
-  user: {email: string, name: string, photo: string};
+  user: User;
 
   userProfile: Models.Auth.UserProfile;
 
@@ -22,15 +24,13 @@ export class PerfilComponent  implements OnInit {
   newPhoto: string = '';
   newAge: number = null;
   cargando: boolean = false;
+  iniciando: boolean = true;
 
   formNewEmail = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
-    password: ['', [Validators.required]], 
   });
 
   enableActualizarEmail: boolean = false;
-  correoVerificado: boolean = false;
-
   enableActualizarPerfil: boolean = false;
 
   enableCambiarPassword: boolean = false;
@@ -45,36 +45,25 @@ export class PerfilComponent  implements OnInit {
   }
 
   formCambiarPassword = this.fb.group({
-    password: ['', [Validators.required]], 
     newPassword: ['', [Validators.required]], // Validators.pattern(Models.Auth.StrongPasswordRegx) 
     repetPassword: ['', [Validators.required, this.isSame]], 
   });
 
-
-  formDeleteUser = this.fb.group({
-    password: ['', [Validators.required]], 
-  });
   enableDeletePassword: boolean = false;
-
-
 
 
   constructor(private fb: FormBuilder,
               private router: Router) { 
-    this.cargando = true;
+
+    this.iniciando = true;
     this.authenticationService.authState.subscribe( res => {
         console.log('res -> ', res);
         if (res) {
-          this.user = {
-            email: res.email,
-            name: res.displayName,
-            photo: res.photoURL
-          }
-          this.correoVerificado = res.emailVerified
+          this.user = res
           this.getDatosProfile(res.uid);
         } else {
           this.user = null
-          this.cargando = false;
+          this.iniciando = false;
         }
     });
           
@@ -83,13 +72,20 @@ export class PerfilComponent  implements OnInit {
 
   ngOnInit() {}
 
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter login');
+     const user = this.authenticationService.getCurrentUser();
+     if (user) {
+        this.user = user
+     }
+  }
+
   salir() {
     this.authenticationService.logout();
   }
 
   async actualizarPerfil() {
-      let data: Models.Auth.UpdateProfileI = {};
-      
+      let data: Models.Auth.UpdateProfileI = {};  
       if (this.newName) {
         data.displayName = this.newName;
       }
@@ -107,11 +103,7 @@ export class PerfilComponent  implements OnInit {
         photo: user.photoURL
       };
       await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${user.uid}`, updateData);
-      this.user = {
-        email: user.email,
-        name: user.displayName,
-        photo: user.photoURL 
-      }
+      this.user = user;
 
   }
 
@@ -122,7 +114,7 @@ export class PerfilComponent  implements OnInit {
           this.userProfile = res;
           console.log('this.userProfile -> ', this.userProfile);
         }
-        this.cargando = false;
+        this.iniciando = false;
     });
   }
 
@@ -141,24 +133,16 @@ export class PerfilComponent  implements OnInit {
       const data = this.formNewEmail.value;
       console.log('valid -> ', data);
       try {
-        await this.authenticationService.reauthenticateWithCredential(data.password)
-        // await this.authenticationService.verifyBeforeUpdateEmail(data.email);
-        // await this.authenticationService.logout();
-        // this.router.navigate(['/user/login']);
-        // return
-
-        // await this.authenticationService.login(user.email, data.password)
-        await this.authenticationService.updateEmail(data.email);
-        const updateDoc: any = {
-          email: data.email
-        }
-        let user = this.authenticationService.getCurrentUser();
-        await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${user.uid}`, updateDoc);
-        this.enableActualizarEmail = false;
-        this.user.email = user.email;
-        console.log('actualizado correo con éxito');
+        await this.authenticationService.verifyBeforeUpdateEmail(data.email);
+        await this.authenticationService.logout();
+        this.router.navigate(['/user/login']);
+        console.log(`te hemos enviado un correo para que puedas verificar tu nuevo correo, 
+        verifícalo e inicia sesión con el nuevo correo, 
+        caso contrario inicia sesión con tu correo de siempre`);
       } catch (error) {
         console.log('error al actualizar el correo -> ', error);
+        console.log('¿Deseas cerrar sesión y volver a ingresar para realizar esta acción?');
+     
       }
     }
   }
@@ -169,56 +153,43 @@ export class PerfilComponent  implements OnInit {
   }
 
   async cambiarPassword() {
-    console.log('this.formCambiarPassword -> ', this.formCambiarPassword);
-    
+    console.log('this.formCambiarPassword -> ', this.formCambiarPassword); 
     if (this.formCambiarPassword.valid) {
       const data = this.formCambiarPassword.value;
       console.log('valid -> ', data);
       try {
-        await this.authenticationService.reauthenticateWithCredential(data.password)
+        // await this.authenticationService.reauthenticateWithCredential(data.password)
         await this.authenticationService.updatePassword(data.newPassword);
         this.enableCambiarPassword= false;
         console.log('contraseña actualizada con éxito');
       } catch (error) {
         console.log('error al cambiar la contraseña -> ', error);
+        console.log('¿Deseas cerrar sesión y volver a ingresar para realizar esta acción?');
       }
     }
   }
 
-  isEqual(input: FormControl) {
-    console.log('input -> ', input.value);
-    console.log('enableCambiarPassword -> ', this.enableCambiarPassword);
-    
-    if (this.formCambiarPassword?.value?.newPassword != input?.value) {
-        return {notSame: true}
-    }  
-    return {notSame: false};
-  }
-
   async eliminarCuenta() {
     // preguntar al usuario si está seguro de eliminar la cuenta
-    if (this.formDeleteUser.valid) {
       try {
-        const data = this.formDeleteUser.value;
-        await this.authenticationService.reauthenticateWithCredential(data.password)
+        // const data = this.formDeleteUser.value;
+        // await this.authenticationService.reauthenticateWithCredential(data.password)
         const user = this.authenticationService.getCurrentUser();
+        // si falla al actualizar la contraseña entonces no podrá eliminar la cuenta
+        // debe tener un inicio de sesión reciente
+        await this.authenticationService.updatePassword('xxxxxx');
+        // primero eliminamos el documento porque en ese momento tenemos permisos
         await this.firestoreService.deleteDocument(`${Models.Auth.PathUsers}/${user.uid}`)
+        // luego si eliminamos la cuenta
         await this.authenticationService.deleteUser();
-        
         console.log('cuenta eliminada con éxito');
         await this.authenticationService.logout();
         this.router.navigate(['/user/login'])
       } catch (error) {
         console.log('error al eliminar la cuenta -> ', error);
-  
+        console.log('¿Deseas cerrar sesión y volver a ingresar para realizar esta acción?');
       }
-    }
-    
   }
-
-
-
-  
 
 }
 

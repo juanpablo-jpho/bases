@@ -1,0 +1,68 @@
+<ion-content>
+
+  <div style="text-align: center;">
+    <p>COMPLETAR REGISTRO</p>
+  </div>
+
+  @if (!iniciando) {
+
+
+      <div class="content-form">
+        <form [formGroup]="datosFormCompleteRegistro" (ngSubmit)="completarRegistro()">
+        
+          <!-- email -->
+          <div class="input-content">
+            <label>Email</label>
+            <input placeholder="Email" formControlName="email" readonly>
+          </div>
+    
+          <!-- nombre -->
+          <div class="input-content">
+            <label>Nombre</label>
+            <input formControlName="name" type="string">
+            <span style="text-align: end;"
+                *ngIf="datosFormCompleteRegistro.controls['name'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- edad -->
+          <div class="input-content">
+            <label>Edad</label>
+            <input formControlName="age" type="number">
+            <span style="text-align: end;"
+                *ngIf="datosFormCompleteRegistro.controls['age'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- foto -->
+          <div class="input-content">
+            <label>Foto</label>
+            <input formControlName="photo" type="string">
+            <span style="text-align: end;"
+                *ngIf="datosFormCompleteRegistro.controls['photo'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+          </div>
+    
+          <!-- enviar -->
+          <div style="text-align: center">
+            <button type="submit"[disabled]="cargando">
+                <strong>Completar registro</strong>
+            </button>
+          </div>
+        
+        
+        </form>
+      </div>
+
+
+  } @else {
+    <div style="text-align: center">
+      <p>cargando...</p>
+    </div>
+  }
+
+
+</ion-content>

@@ -9,8 +9,6 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
       signInWithRedirect,
       GoogleAuthProvider
     } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { getRedirectResult } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -20,17 +18,9 @@ export class AuthenticationService {
   auth: Auth = inject(Auth);
   authState = authState(this.auth)
 
-  constructor(private router: Router) { 
+  constructor() { 
     // this.logout();
     this.auth.languageCode = 'es';    
-
-    getRedirectResult(this.auth).then( response => {
-          console.log('getRedirectResult -> ', response);
-          if (response) {
-            this.router.navigate(['/user/registro'])
-          }
-    });
-
   }
 
   async createUser(email: string, password: string) {
@@ -56,10 +46,11 @@ export class AuthenticationService {
   }
 
   reauthenticateWithCredential(password: string) {
-    const credential = EmailAuthProvider.credential(
-      this.auth.currentUser.email,
-      password
-    );
+    // const credential = EmailAuthProvider.credential(
+    //   this.auth.currentUser.email,
+    //   password
+    // );
+    const credential = GoogleAuthProvider.credential(null, password);
     return reauthenticateWithCredential(this.auth.currentUser, credential)
   }
 

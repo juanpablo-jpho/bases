@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService } from '../../../firebase/authentication.service';
 import { Models } from 'src/app/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent  implements OnInit {
 
   form: Models.Auth.DatosLogin;
   authenticationService: AuthenticationService = inject(AuthenticationService);
-  user: {email: string, name: string, photo: string};
+  user: User;
   cargando: boolean = false;
 
   enableLoginWithEmailAndPassword: boolean = false;
@@ -42,14 +43,8 @@ export class LoginComponent  implements OnInit {
 
     this.cargando = true;
     this.authenticationService.authState.subscribe( res => {
-        console.log('res -> ', res);
         if (res) {
-          this.user = {
-            email: res.email,
-            name: res.displayName,
-            photo: res.photoURL
-          }
-          console.log('user -> ', this.user);
+          this.user = res
         } else {
           this.user = null
         }
@@ -60,18 +55,6 @@ export class LoginComponent  implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter login');
-     const user = this.authenticationService.getCurrentUser();
-     if (user) {
-        this.user = {
-          email: user.email,
-          name: user.displayName,
-          photo: user.photoURL
-        }
-     }
   }
 
   loginWithProvider(provider: Models.Auth.ProviderLoginI) {
@@ -98,10 +81,6 @@ export class LoginComponent  implements OnInit {
                 
       }
     }
-  }
-
-  salir() {
-    this.authenticationService.logout();
   }
 
   async resetPassword() {
