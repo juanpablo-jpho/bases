@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../../firebase/authentication.service'
 import { Models } from 'src/app/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -50,7 +51,9 @@ export class LoginComponent  implements OnInit {
     }
   ] 
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder,
+              private router: Router,
+  ) { 
     this.initForm();
 
     this.cargando = true;
@@ -69,12 +72,18 @@ export class LoginComponent  implements OnInit {
   ngOnInit() {
   }
 
-  loginWithProvider(provider: Models.Auth.ProviderLoginI) {
+  async loginWithProvider(provider: Models.Auth.ProviderLoginI) {
     if (provider.id == 'password') {
       this.enableLoginWithEmailAndPassword = true;
       return;
     }
-    this.authenticationService.loginWithProvider(provider.id)
+    // this.authenticationService.loginWithProvider(provider.id)
+    const token = await this.authenticationService.getTokenOfProvider(provider.id);
+    console.log(`token: ${token} para hacer el login con -> ${provider.id}`);
+    
+    await this.authenticationService.loginWithTokenOfProvider(provider.id, token);
+    this.router.navigate(['user', 'perfil'])
+
   }
 
   initForm() {

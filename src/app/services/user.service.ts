@@ -3,7 +3,7 @@ import { AuthenticationService } from '../firebase/authentication.service';
 import { User } from '@angular/fire/auth';
 import { FirestoreService } from '../firebase/firestore.service';
 import { Models } from '../models/models';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class UserService {
   user: User;
   userProfile: Models.Auth.UserProfile;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router,
+              private route: ActivatedRoute) { 
 
       console.log('UserService init');
       this.authenticationService.authState.subscribe( res => {
@@ -30,6 +31,9 @@ export class UserService {
   }
 
   async getDatosProfile(uid: string) {
+    const queryParams: any = this.route.snapshot.queryParams;
+    const intentId = queryParams.intentId
+    if (intentId) { return; }
     const response = await this.firestoreService.getDocument<Models.Auth.UserProfile>(`${Models.Auth.PathUsers}/${uid}`)
     if (response.exists()) {  
         this.userProfile = response.data();
@@ -38,9 +42,9 @@ export class UserService {
           const updateData = {email: this.user.email};
           this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${uid}`, updateData)
         }
-      } else {
-        this.router.navigate(['/user/completar-registro'])
-      }
+    } else {
+      this.router.navigate(['/user/completar-registro'])
+    }
   }
 
 

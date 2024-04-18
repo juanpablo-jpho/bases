@@ -42,6 +42,7 @@ ionic g c auth/pages/login --spec=false
 ionic g c auth/pages/registro --spec=false
 ionic g c auth/pages/completar-registro --spec=false
 ionic g c auth/pages/perfil --spec=false
+ionic g c auth/pages/request-login --spec=false
 
 ionic g s services/user
 

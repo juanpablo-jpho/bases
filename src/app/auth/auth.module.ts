@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CompletarRegistroComponent } from './pages/completar-registro/completar-registro.component';
+import { RequestLoginComponent } from './pages/request-login/request-login.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { CompletarRegistroComponent } from './pages/completar-registro/completar
     LoginComponent,
     RegistroComponent,
     PerfilComponent,
-    CompletarRegistroComponent
+    CompletarRegistroComponent,
+    RequestLoginComponent
   ],
   imports: [
     CommonModule,

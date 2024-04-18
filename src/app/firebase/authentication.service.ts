@@ -9,8 +9,15 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
       signInWithRedirect,
       GoogleAuthProvider,
       OAuthProvider,
-      FacebookAuthProvider
+      FacebookAuthProvider,
+      OAuthCredential,
+      signInWithCredential,
+      getRedirectResult
     } from '@angular/fire/auth';
+import { FirestoreService } from './firestore.service';
+import { environment } from 'src/environments/environment';
+import { Browser } from '@capacitor/browser';
+import { Models } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +25,13 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
 export class AuthenticationService {
 
   auth: Auth = inject(Auth);
-  authState = authState(this.auth)
+  authState = authState(this.auth);
+  firestoreService: FirestoreService = inject(FirestoreService);
 
   constructor() { 
     // this.logout();
-    this.auth.languageCode = 'es';    
+    this.auth.languageCode = 'es';   
+    
   }
 
   async createUser(email: string, password: string) {
@@ -95,6 +104,64 @@ export class AuthenticationService {
      if (provider) {
        signInWithRedirect(this.auth, provider)
      }
+  }
+
+  async getTokenOfProvider(providerId: string) {
+    console.log('getTokenOfProvider -> ', providerId);
+    return new Promise<string>( async (resolve) => { 
+      try {
+        const path = Models.Auth.PathIntentsLogin;
+        const data: any = {
+          provider: providerId,
+          token: null
+        }
+        const id = await this.firestoreService.createDocument(path, data);
+        const s = this.firestoreService.getDocumentChanges<any>(`${path}/${id}`).subscribe( async (response) => {
+            if (response) {
+                if (response.provider == providerId && response.token) {
+                    console.log('login with token -> ', response);
+                    Browser.close()
+                    s.unsubscribe();
+                    this.firestoreService.deleteDocument(`${path}/${id}`)
+                    resolve(response.token);
+                } 
+            }
+        });
+        
+        // const link = `http://localhost:8100/user/request-login?provider=${providerId}&intentId=${id}`;
+        const link = `https://${environment.firebaseConfig.authDomain}/user/request-login?provider=${providerId}&intentId=${id}`;
+        // console.log('link -> ', link);
+
+        await Browser.open({ url: link });        
+      } catch (error) {
+        resolve(null);
+      }
+    })
+    
+  }
+
+  async loginWithTokenOfProvider(providerId: string, token: string) {
+      let credential: OAuthCredential;
+      switch (providerId) {
+        case 'google':
+          credential = GoogleAuthProvider.credential(token)
+          break;
+        case 'apple':
+          const OAuth = new OAuthProvider('apple.com');
+          credential = OAuth.credential({idToken: token});
+          break;
+        case 'facebook':
+          credential = FacebookAuthProvider.credential(token);
+          break;
+      }
+      console.log('credentials -> ', credential);
+      if (credential) {
+        await signInWithCredential(this.auth, credential);
+      }
+  }
+
+  getRedirectResult() {
+    return getRedirectResult(this.auth) 
   }
 
 }
