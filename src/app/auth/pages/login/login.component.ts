@@ -31,9 +31,21 @@ export class LoginComponent  implements OnInit {
         textColor: 'white'
     },
     {
+      name: 'Iniciar sesión con Apple',
+      id: 'apple',
+      color: 'black',
+      textColor: 'white'
+    },
+    {
+      name: 'Iniciar sesión con Facebook',
+      id: 'facebook',
+      color: '#1871ed',
+      textColor: 'white'
+    },
+    {
       name: 'Iniciar sesión con correo y contraseña',
       id: 'password',
-      color: 'black',
+      color: '#9e9e9e',
       textColor: 'white'
     }
   ] 

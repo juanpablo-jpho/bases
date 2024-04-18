@@ -7,7 +7,9 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
       updatePassword, sendPasswordResetEmail,
       deleteUser,
       signInWithRedirect,
-      GoogleAuthProvider
+      GoogleAuthProvider,
+      OAuthProvider,
+      FacebookAuthProvider
     } from '@angular/fire/auth';
 
 @Injectable({
@@ -84,7 +86,15 @@ export class AuthenticationService {
      if (providerId == 'google') {
         provider = new GoogleAuthProvider();
      }
-     signInWithRedirect(this.auth, provider)
+     if (providerId == 'apple') {
+      provider = new OAuthProvider('apple.com');
+     }
+     if (providerId == 'facebook') {
+      provider = new FacebookAuthProvider();
+     }
+     if (provider) {
+       signInWithRedirect(this.auth, provider)
+     }
   }
 
 }
