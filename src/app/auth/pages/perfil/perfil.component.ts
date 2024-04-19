@@ -51,6 +51,8 @@ export class PerfilComponent  implements OnInit {
 
   enableDeletePassword: boolean = false;
 
+  isAdmin: boolean = false;
+
 
   constructor(private fb: FormBuilder,
               private router: Router) { 
@@ -73,8 +75,8 @@ export class PerfilComponent  implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter login');
-     const user = this.authenticationService.getCurrentUser();
+    const user = this.authenticationService.getCurrentUser();
+    console.log('ionViewDidEnter login -> ', user);
      if (user) {
         this.user = user
      }
@@ -110,9 +112,13 @@ export class PerfilComponent  implements OnInit {
   getDatosProfile(uid: string) {
     console.log('getDatosProfile -> ', uid);
     this.firestoreService.getDocumentChanges<Models.Auth.UserProfile>(`${Models.Auth.PathUsers}/${uid}`).subscribe( res => {
+        this.isAdmin = false
         if (res) {  
           this.userProfile = res;
           console.log('this.userProfile -> ', this.userProfile);
+          if (this.userProfile.roles?.admin == true) {
+            this.isAdmin = true;
+          }
         }
         this.iniciando = false;
     });
@@ -121,7 +127,8 @@ export class PerfilComponent  implements OnInit {
   async actualizarEdad() {
     const user = this.authenticationService.getCurrentUser();
     const updateDoc: any = {
-      age: this.userProfile.age
+      age: this.userProfile.age,
+      // roles: {admin: true}
     }
     await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${user.uid}`, updateDoc)
     console.log('actualizado con éxito');

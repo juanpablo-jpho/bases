@@ -155,6 +155,12 @@
         </button>
       </div>
  
+      @if (isAdmin) {
+        <div style="text-align: right">
+          <button [routerLink]="['/user/admin']">administrar usuarios</button>
+        </div>
+      }
+
       <div style="text-align: right">
         <button class="salir" (click)="salir()">Salir</button>
       </div>

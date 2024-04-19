@@ -128,7 +128,7 @@ export class AppComponent {
 
   async getProducts() {
     console.log('getProducts()');
-    const path = 'Products';
+    const path = 'Users';
     // const path = '/Users/8njXZ7n0GuhJyi1ysXO9/pedidos'
     // const path = "pedidos"
 

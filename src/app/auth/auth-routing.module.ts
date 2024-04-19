@@ -5,13 +5,15 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CompletarRegistroComponent } from './pages/completar-registro/completar-registro.component';
 import { RequestLoginComponent } from './pages/request-login/request-login.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'request-login', component: RequestLoginComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'completar-registro', component: CompletarRegistroComponent},
-  {path: 'perfil', component: PerfilComponent}
+  {path: 'perfil', component: PerfilComponent},
+  {path: 'admin', component: UsersComponent}
 ];
 
 @NgModule({

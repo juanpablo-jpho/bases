@@ -44,6 +44,10 @@ ionic g c auth/pages/completar-registro --spec=false
 ionic g c auth/pages/perfil --spec=false
 ionic g c auth/pages/request-login --spec=false
 
+ionic g c auth/pages/users --spec=false
+
+ionic g c auth/components/user-detail --spec=false
+
 ionic g s services/user
 
 

@@ -44,14 +44,17 @@ export class RegistroComponent  implements OnInit {
           displayName: data.name,
           photoURL: data.photo
         };
-        // https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg
+        // https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg'
+        // https://cdn.pixabay.com/photo/2021/01/04/10/37/icon-5887113_1280.png
+        // https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg
         await this.authenticationService.updateProfile(profile);
         const datosUser: Models.Auth.UserProfile = {
           name: data.name,
           photo: data.photo,
           age: data.age,
           id: res.user.uid,
-          email: data.email
+          email: data.email,
+          roles: { cliente: true}
         }
         console.log('datosUser -> ', datosUser);
         await this.firestoreService.createDocument(Models.Auth.PathUsers, datosUser, res.user.uid);

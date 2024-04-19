@@ -1,0 +1,56 @@
+
+
+.more {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background: aquamarine;
+    font-weight: bold;
+}
+
+.rol {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background: aliceblue;
+    font-weight: bold;;
+}
+
+.rol-selected {
+    background: aquamarine;
+}
+
+.button-gris {
+    padding: 10px;
+    background-color: #d7d8da;
+    border-radius: 5px;
+    margin: 10px;
+    width: unset;
+}
+
+.content-form {
+    margin: 15px;
+    border: 1px dotted #9E9E9E;
+    padding: 20px;
+}
+
+button {
+    padding: 10px;
+    background-color: aquamarine;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+input {
+    padding: 15px;
+    width: 90%;
+    border-radius: 5px;
+    margin: 5px 0px 20px 0px;
+}
+
+span {
+    color: red;
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,48 @@
+@if (user) {
+  <div class="content-user">
+
+    <div>
+      @if (user.photo) {
+          <img [src]="user.photo">
+      } @else {
+          <img src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg">
+      }
+    </div>  
+    <div>
+      <p> <strong>Nombre:</strong>  {{user.name}}</p>
+      <p> <strong>Email:</strong>  {{user.email}}</p>
+      <p> <strong>Edad:</strong>  {{user.age}}</p>
+    </div>
+  </div>
+
+  @if (!enableAgregarRol) {
+    <div style="text-align:right">
+      <button (click)="enableAgregarRol = true">Editar rol</button>
+    </div>
+  } @else {
+    <div style="text-align: center;">
+        @for (item of rolesUser; track $index) {
+          <button class="rol" [ngClass]="{'rol-selected': item.enable}"
+          (click)="selectRol(item.rol)">
+            {{item.rol}}
+          </button>
+        }
+    </div>
+
+    <!-- actualizar rol -->
+    <div style="text-align: center">
+      <button (click)="enableAgregarRol = false">
+        <strong>cancelar</strong>
+        </button>
+      <button (click)="actualizarRol()">
+          <strong>actualizar</strong>
+      </button>
+    </div>
+
+  }
+
+
+
+
+
+}

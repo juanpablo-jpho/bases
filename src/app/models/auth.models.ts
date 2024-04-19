@@ -26,6 +26,11 @@ export namespace ModelsAuth {
         age: string;
         id: string;
         email: string;
+        roles?: {
+            admin?: boolean;
+            cliente?: boolean;
+            motorizado?: boolean;
+        }
     }
 
     export interface ProviderLoginI {
@@ -36,5 +41,7 @@ export namespace ModelsAuth {
     }
 
     export type IdProviderLogin = 'password' | 'google' | 'facebook' | 'apple'
+
+    export type Rol = 'admin' | 'cliente' | 'motorizado';
 
 }

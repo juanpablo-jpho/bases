@@ -1,0 +1,84 @@
+<ion-content>
+
+  <div style="text-align: center;">
+    <p>ADMINISTRADOR DE USUARIOS</p>
+  </div>
+
+  @if (enableBuscarPorEmail) {
+
+      <div class="content-form">
+        <form [formGroup]="formEmail" (ngSubmit)="buscarPorEmail()">
+        
+          <!-- email -->
+          <div class="input-content">
+            <label>Email</label>
+            <input placeholder="Email" formControlName="email">
+            <span 
+                *ngIf="formEmail.controls['email'].hasError('required')">
+              <i>Este campo es <strong>requerido</strong></i>  
+            </span>
+            <span style="text-align: end;"
+            *ngIf="formEmail.controls['email'].hasError('email')">
+            <i>Ingresa un email <strong>válido</strong></i>  
+            </span>
+    
+          </div>
+  
+          <!-- enviar -->
+          <div style="text-align: center">
+            <button (click)="enableBuscarPorEmail = false">
+              <strong>cancelar</strong>
+             </button>
+            <button type="submit"[disabled]="cargando">
+                <strong>buscar</strong>
+            </button>
+          </div>
+        
+        </form>
+      </div>
+   
+  } @else {
+
+    <div style="text-align: center">
+      <button class="button-gris"(click)="enableBuscarPorEmail = true; users = null">Buscar por email</button>
+    </div>
+
+    <div style="text-align: center;">
+      @for (rol of roles; track $index) {
+        <button class="rol" [ngClass]="{'rol-selected': rol == rolSelected}"
+        (click)="getMoreUsers(rol)">{{rol}}</button>
+      }
+    </div>
+  }
+     
+  @if(!cargando) {
+
+
+      @for (user of users; track $index) {
+
+        <app-user-detail [user]="user"></app-user-detail>
+
+      } @empty {
+        <div style="text-align: center;">
+          <p>no hay usuarios </p>
+        </div>
+      }
+
+      @if (enableMore) {
+        <div style="text-align:center" >
+          <button (click)="getMoreUsers()" class="more">más</button>
+        </div>
+      }
+
+  } 
+  @else {
+    <p style="text-align: center">cargando...</p>
+  }
+
+  
+
+
+
+    <div  style="margin: 60px"></div>
+
+</ion-content>

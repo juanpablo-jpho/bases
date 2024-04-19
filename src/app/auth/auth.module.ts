@@ -9,6 +9,8 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CompletarRegistroComponent } from './pages/completar-registro/completar-registro.component';
 import { RequestLoginComponent } from './pages/request-login/request-login.component';
+import { UsersComponent } from './pages/users/users.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { RequestLoginComponent } from './pages/request-login/request-login.compo
     RegistroComponent,
     PerfilComponent,
     CompletarRegistroComponent,
-    RequestLoginComponent
+    RequestLoginComponent,
+    UsersComponent,
+    UserDetailComponent
   ],
   imports: [
     CommonModule,
