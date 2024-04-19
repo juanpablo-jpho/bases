@@ -8,9 +8,8 @@ import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-
+import { getFirestore, initializeFirestore, persistentLocalCache, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, indexedDBLocalPersistence, initializeAuth, provideAuth } from '@angular/fire/auth';
 
 if (environment.production) {
   enableProdMode();
@@ -24,7 +23,16 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     // firebase
     
-    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),
+    importProvidersFrom(provideFirebaseApp(() => {
+      const app = initializeApp(environment.firebaseConfig);
+        initializeFirestore(app, {
+          localCache: persistentLocalCache(),
+        });
+        initializeAuth(app, {
+          persistence: indexedDBLocalPersistence
+        });
+      return app;
+    })),
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(provideAuth(() => getAuth())),   
   ],

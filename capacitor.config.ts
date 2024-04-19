@@ -5,7 +5,8 @@ const config: CapacitorConfig = {
   appName: 'bases',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'https',
+    iosScheme: "ionic",
   }
 };
 

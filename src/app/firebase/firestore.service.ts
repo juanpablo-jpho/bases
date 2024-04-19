@@ -4,7 +4,7 @@ import { Models } from '../models/models';
 import { DocumentSnapshot, Firestore, QuerySnapshot, and, average, collection, 
   collectionData, collectionGroup, deleteDoc, doc, docData, getAggregateFromServer, 
   getCountFromServer, getDoc, getDocs, limit, or, orderBy, query, serverTimestamp, 
-  setDoc, startAfter, sum, updateDoc, where } from '@angular/fire/firestore';
+  setDoc, startAfter, sum, updateDoc, where, PersistentLocalCache  } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,9 @@ export class FirestoreService {
 
   private firestore: Firestore = inject(Firestore)
 
-  constructor() { }
+  constructor() { 
+
+  }
 
 //---| CREATE |---//
   async createDocument<tipo>(path: string, data: tipo, id: string = null) {

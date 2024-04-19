@@ -12,7 +12,7 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
       FacebookAuthProvider,
       OAuthCredential,
       signInWithCredential,
-      getRedirectResult
+      getRedirectResult,
     } from '@angular/fire/auth';
 import { FirestoreService } from './firestore.service';
 import { environment } from 'src/environments/environment';
@@ -28,10 +28,10 @@ export class AuthenticationService {
   authState = authState(this.auth);
   firestoreService: FirestoreService = inject(FirestoreService);
 
+
   constructor() { 
     // this.logout();
-    this.auth.languageCode = 'es';   
-    
+    this.auth.languageCode = 'es';       
   }
 
   async createUser(email: string, password: string) {

@@ -6,4 +6,6 @@ npm i @angular/fire@17.0.1 firebase@10.10.0
 
 
 npm install @capacitor/android@{version}
+npm install @capacitor/ios@5
+
 npx cap add android   
