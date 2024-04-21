@@ -1,0 +1,37 @@
+io.ionic.starter.app-lifecycle-runtime-2.6.1-0 /Users/macbook/.gradle/caches/transforms-3/0e8f1faf2b7408bf7cbef9376d618b4b/transformed/lifecycle-runtime-2.6.1/res
+io.ionic.starter.app-core-runtime-2.2.0-1 /Users/macbook/.gradle/caches/transforms-3/1d02f4c8f5da1ec59343bd1c9ae1dff8/transformed/core-runtime-2.2.0/res
+io.ionic.starter.app-coordinatorlayout-1.2.0-2 /Users/macbook/.gradle/caches/transforms-3/32d85a34682b2d04b9faab0e5b16ad91/transformed/coordinatorlayout-1.2.0/res
+io.ionic.starter.app-lifecycle-viewmodel-savedstate-2.6.1-3 /Users/macbook/.gradle/caches/transforms-3/3caeca9fdbbca03249ef261c7dacb7de/transformed/lifecycle-viewmodel-savedstate-2.6.1/res
+io.ionic.starter.app-core-1.10.0-4 /Users/macbook/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/res
+io.ionic.starter.app-core-splashscreen-1.0.0-5 /Users/macbook/.gradle/caches/transforms-3/49d76494bab876e6a92e613846322b45/transformed/core-splashscreen-1.0.0/res
+io.ionic.starter.app-core-ktx-1.10.0-6 /Users/macbook/.gradle/caches/transforms-3/5ad7ee1f7068f3f8765759464a008c3f/transformed/core-ktx-1.10.0/res
+io.ionic.starter.app-lifecycle-livedata-core-2.6.1-7 /Users/macbook/.gradle/caches/transforms-3/63523c33e250799e2201ac1b58bdce79/transformed/lifecycle-livedata-core-2.6.1/res
+io.ionic.starter.app-lifecycle-process-2.6.1-8 /Users/macbook/.gradle/caches/transforms-3/6965ddfd7c9bb67e76de74f23369d3cb/transformed/lifecycle-process-2.6.1/res
+io.ionic.starter.app-webkit-1.6.1-9 /Users/macbook/.gradle/caches/transforms-3/6ded39dca6b98a352315fec226a4acb8/transformed/webkit-1.6.1/res
+io.ionic.starter.app-savedstate-1.2.1-10 /Users/macbook/.gradle/caches/transforms-3/85f8faf81271017e491f43ab7c857437/transformed/savedstate-1.2.1/res
+io.ionic.starter.app-appcompat-1.6.1-11 /Users/macbook/.gradle/caches/transforms-3/8bb8b13c1438848676861a1388a97eb3/transformed/appcompat-1.6.1/res
+io.ionic.starter.app-activity-1.7.0-12 /Users/macbook/.gradle/caches/transforms-3/907f6fa574a440dc09dfa52eaa88a1d2/transformed/activity-1.7.0/res
+io.ionic.starter.app-lifecycle-livedata-2.6.1-13 /Users/macbook/.gradle/caches/transforms-3/98bf846ebcfe2cc0bcf42d18533f7685/transformed/lifecycle-livedata-2.6.1/res
+io.ionic.starter.app-emoji2-views-helper-1.2.0-14 /Users/macbook/.gradle/caches/transforms-3/a2c7905026c1de9fd254addcc0df2b5f/transformed/emoji2-views-helper-1.2.0/res
+io.ionic.starter.app-profileinstaller-1.3.0-15 /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/res
+io.ionic.starter.app-appcompat-resources-1.6.1-16 /Users/macbook/.gradle/caches/transforms-3/acb0279fa605e581f304fa8780c50bc3/transformed/appcompat-resources-1.6.1/res
+io.ionic.starter.app-emoji2-1.2.0-17 /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/res
+io.ionic.starter.app-annotation-experimental-1.3.0-18 /Users/macbook/.gradle/caches/transforms-3/c4eb8610416ba9fcff7203d70109fbae/transformed/annotation-experimental-1.3.0/res
+io.ionic.starter.app-fragment-1.5.6-19 /Users/macbook/.gradle/caches/transforms-3/caa37cc8ebbb231a68aa8267c9929f0b/transformed/fragment-1.5.6/res
+io.ionic.starter.app-startup-runtime-1.1.1-20 /Users/macbook/.gradle/caches/transforms-3/cbba8fa06ff627dd03ed447673f21fd8/transformed/startup-runtime-1.1.1/res
+io.ionic.starter.app-lifecycle-viewmodel-2.6.1-21 /Users/macbook/.gradle/caches/transforms-3/ccf067cc097e442fb96647bf9b45d0aa/transformed/lifecycle-viewmodel-2.6.1/res
+io.ionic.starter.app-browser-1.5.0-22 /Users/macbook/.gradle/caches/transforms-3/e4b98499a4d365aa4c6af078707e3ea9/transformed/browser-1.5.0/res
+io.ionic.starter.app-pngs-23 /Volumes/Juan Pablo/Teligol/curso/bases/android/app/build/generated/res/pngs/debug
+io.ionic.starter.app-resValues-24 /Volumes/Juan Pablo/Teligol/curso/bases/android/app/build/generated/res/resValues/debug
+io.ionic.starter.app-packageDebugResources-25 /Volumes/Juan Pablo/Teligol/curso/bases/android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+io.ionic.starter.app-packageDebugResources-26 /Volumes/Juan Pablo/Teligol/curso/bases/android/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+io.ionic.starter.app-merged_res-27 /Volumes/Juan Pablo/Teligol/curso/bases/android/app/build/intermediates/merged_res/debug
+io.ionic.starter.app-debug-28 /Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/debug/res
+io.ionic.starter.app-main-29 /Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/res
+io.ionic.starter.app-packaged_res-30 /Volumes/Juan Pablo/Teligol/curso/bases/android/capacitor-cordova-android-plugins/build/intermediates/packaged_res/debug
+io.ionic.starter.app-packaged_res-31 /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/android/capacitor/build/intermediates/packaged_res/debug
+io.ionic.starter.app-packaged_res-32 /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/app/android/build/intermediates/packaged_res/debug
+io.ionic.starter.app-packaged_res-33 /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/packaged_res/debug
+io.ionic.starter.app-packaged_res-34 /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/haptics/android/build/intermediates/packaged_res/debug
+io.ionic.starter.app-packaged_res-35 /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/keyboard/android/build/intermediates/packaged_res/debug
+io.ionic.starter.app-packaged_res-36 /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/status-bar/android/build/intermediates/packaged_res/debug

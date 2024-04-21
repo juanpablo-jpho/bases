@@ -1,0 +1,183 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.ionic.starter"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="22"
+8-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml
+10
+11    <!-- Permissions -->
+12
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:40:5-67
+13-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:40:22-64
+14
+15    <queries>
+15-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-11:15
+16        <intent>
+16-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:8:9-10:18
+17            <action android:name="android.support.customtabs.action.CustomTabsService" />
+17-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-90
+17-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:9:21-87
+18        </intent>
+19    </queries>
+20
+21    <uses-permission android:name="android.permission.VIBRATE" />
+21-->[:capacitor-haptics] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/haptics/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-66
+21-->[:capacitor-haptics] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/haptics/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:22-63
+22
+23    <permission
+23-->[androidx.core:core:1.10.0] /Users/macbook/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:22:5-24:47
+24        android:name="io.ionic.starter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+24-->[androidx.core:core:1.10.0] /Users/macbook/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:23:9-81
+25        android:protectionLevel="signature" />
+25-->[androidx.core:core:1.10.0] /Users/macbook/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:24:9-44
+26
+27    <uses-permission android:name="io.ionic.starter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+27-->[androidx.core:core:1.10.0] /Users/macbook/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:26:5-97
+27-->[androidx.core:core:1.10.0] /Users/macbook/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:26:22-94
+28
+29    <application
+29-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:4:5-36:19
+30        android:allowBackup="true"
+30-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:5:9-35
+31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+31-->[androidx.core:core:1.10.0] /Users/macbook/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:28:18-86
+32        android:debuggable="true"
+33        android:icon="@mipmap/ic_launcher"
+33-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:6:9-43
+34        android:label="@string/app_name"
+34-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:7:9-41
+35        android:roundIcon="@mipmap/ic_launcher_round"
+35-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:8:9-54
+36        android:supportsRtl="true"
+36-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:9:9-35
+37        android:testOnly="true"
+38        android:theme="@style/AppTheme" >
+38-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:10:9-40
+39        <activity
+39-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:12:9-25:20
+40            android:name="io.ionic.starter.MainActivity"
+40-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:14:13-41
+41            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+41-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:13:13-129
+42            android:exported="true"
+42-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:18:13-36
+43            android:label="@string/title_activity_main"
+43-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:15:13-56
+44            android:launchMode="singleTask"
+44-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:17:13-44
+45            android:theme="@style/AppTheme.NoActionBarLaunch" >
+45-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:16:13-62
+46            <intent-filter>
+46-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:20:13-23:29
+47                <action android:name="android.intent.action.MAIN" />
+47-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:21:17-69
+47-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:21:25-66
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:22:17-77
+49-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:22:27-74
+50            </intent-filter>
+51        </activity>
+52
+53        <provider
+54            android:name="androidx.core.content.FileProvider"
+54-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:28:13-62
+55            android:authorities="io.ionic.starter.fileprovider"
+55-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:29:13-64
+56            android:exported="false"
+56-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:30:13-37
+57            android:grantUriPermissions="true" >
+57-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:31:13-47
+58            <meta-data
+58-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:32:13-34:64
+59                android:name="android.support.FILE_PROVIDER_PATHS"
+59-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:33:17-67
+60                android:resource="@xml/file_paths" />
+60-->/Volumes/Juan Pablo/Teligol/curso/bases/android/app/src/main/AndroidManifest.xml:34:17-51
+61        </provider>
+62
+63        <activity
+63-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-18:75
+64            android:name="com.capacitorjs.plugins.browser.BrowserControllerActivity"
+64-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-85
+65            android:exported="false"
+65-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-37
+66            android:launchMode="singleTask"
+66-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-44
+67            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+67-->[:capacitor-browser] /Volumes/Juan Pablo/Teligol/curso/bases/node_modules/@capacitor/browser/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-72
+68
+69        <provider
+69-->[androidx.emoji2:emoji2:1.2.0] /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+70            android:name="androidx.startup.InitializationProvider"
+70-->[androidx.emoji2:emoji2:1.2.0] /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+71            android:authorities="io.ionic.starter.androidx-startup"
+71-->[androidx.emoji2:emoji2:1.2.0] /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+72            android:exported="false" >
+72-->[androidx.emoji2:emoji2:1.2.0] /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+73            <meta-data
+73-->[androidx.emoji2:emoji2:1.2.0] /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+74                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+74-->[androidx.emoji2:emoji2:1.2.0] /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+75                android:value="androidx.startup" />
+75-->[androidx.emoji2:emoji2:1.2.0] /Users/macbook/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+76            <meta-data
+76-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/macbook/.gradle/caches/transforms-3/6965ddfd7c9bb67e76de74f23369d3cb/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+77                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+77-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/macbook/.gradle/caches/transforms-3/6965ddfd7c9bb67e76de74f23369d3cb/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+78                android:value="androidx.startup" />
+78-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/macbook/.gradle/caches/transforms-3/6965ddfd7c9bb67e76de74f23369d3cb/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+79            <meta-data
+79-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+80                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+80-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+81                android:value="androidx.startup" />
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+82        </provider>
+83
+84        <receiver
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+85            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+86            android:directBootAware="false"
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+87            android:enabled="true"
+87-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+88            android:exported="true"
+88-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+89            android:permission="android.permission.DUMP" >
+89-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+90            <intent-filter>
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+91                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+92            </intent-filter>
+93            <intent-filter>
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+94                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+95            </intent-filter>
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+97                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+98            </intent-filter>
+99            <intent-filter>
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+100                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/macbook/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+101            </intent-filter>
+102        </receiver>
+103    </application>
+104
+105</manifest>

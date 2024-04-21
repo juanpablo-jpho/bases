@@ -1,0 +1,9 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "bases",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https",
+		"iosScheme": "ionic"
+	}
+}
