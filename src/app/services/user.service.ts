@@ -11,40 +11,74 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserService {
 
   private  authenticationService: AuthenticationService = inject(AuthenticationService)
-  firestoreService: FirestoreService = inject(  FirestoreService);
-  user: User;
-  userProfile: Models.Auth.UserProfile;
+  private firestoreService: FirestoreService = inject(  FirestoreService);
+  private user: User;
+  private userProfile: Models.Auth.UserProfile;
+  private login: 'login' | 'not-login';
+
 
   constructor(private router: Router,
               private route: ActivatedRoute) { 
 
       console.log('UserService init');
-      this.authenticationService.authState.subscribe( res => {
-        if (res) {
-          this.user = res;
-          this.getDatosProfile(res.uid);
-        } else {
-          this.user = null
-        }
-      });
+      this.getState();
 
   }
 
-  async getDatosProfile(uid: string) {
-    const queryParams: any = this.route.snapshot.queryParams;
-    const intentId = queryParams.intentId
-    if (intentId) { return; }
-    const response = await this.firestoreService.getDocument<Models.Auth.UserProfile>(`${Models.Auth.PathUsers}/${uid}`)
-    if (response.exists()) {  
-        this.userProfile = response.data();
-        if (this.userProfile.email != this.user.email) {
-          console.log('sincronizar email');
-          const updateData = {email: this.user.email};
-          this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${uid}`, updateData)
+  getState() {
+      return new Promise<User>((resolve) => {
+          if (this.login) {
+            resolve(this.user);
+            return;
+          }
+          this.authenticationService.authState.subscribe( res => {
+            if (res) {
+              this.user = res;
+              this.login = 'login';
+              this.getUserProfile(res.uid);
+            } else {
+              this.user = null
+              this.login = 'not-login';
+            }
+            resolve(this.user);
+          });
+      })
+  }
+
+  async getUserProfile(uid: string) {
+    return new Promise<Models.Auth.UserProfile>( async (resolve) => {
+
+        const queryParams: any = this.route.snapshot.queryParams;
+        const intentId = queryParams.intentId
+        if (intentId) { 
+          resolve(null)
+          return; 
         }
-    } else {
-      this.router.navigate(['/user/completar-registro'])
-    }
+
+        const response = await this.firestoreService.getDocument<Models.Auth.UserProfile>(`${Models.Auth.PathUsers}/${uid}`)
+        if (response.exists()) {  
+            this.userProfile = response.data();
+            resolve(this.userProfile);
+            if (this.userProfile.email != this.user.email) {
+              console.log('sincronizar email');
+              const updateData = {email: this.user.email};
+              this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${uid}`, updateData)
+            }
+        } else {
+          this.router.navigate(['/user/completar-registro'])
+        }
+    });
+  }
+
+  isLogin() {
+    return new Promise<boolean>( async (resolve) => {
+      const user = await this.getState();
+      if (user) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    })
   }
 
 

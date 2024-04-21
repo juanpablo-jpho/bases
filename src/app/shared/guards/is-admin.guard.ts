@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { WebService } from 'src/app/services/web.service';
+// import { Observable } from 'rxjs';
+// import { WebService } from 'src/app/services/web.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +23,21 @@ export class IsAdminGuard  {
       }, 2000);
      })
   }
-  
-}
+
+} 
 
 // export const IsAdminGuard: CanActivateFn = async (
 //   next: ActivatedRouteSnapshot,
 //   state: RouterStateSnapshot) => {
 
-//     const webService = inject(WebService);
+//     console.log('IsAdminGuard -> ', next);
+//     console.log('IsAdminGuard -> ', state);
+    
+    
+//     // const webService = inject(WebService);
 //     // your  logic goes here
 //     // await true;
-//     return false;
+//     return true;
 // }
+
+

@@ -44,8 +44,8 @@ export class UsersComponent  implements OnInit {
 
       this.rolSelected = rol;
       console.log('getMoreUsers');
-      const path = 'Users';
-      const numItems = 2;
+      const path = Models.Auth.PathUsers;
+      const numItems = 1;
       let q: Models.Firebase.whereQuery[];
       q = [ [`roles.${rol}`, '==', true] ];
       const extras: Models.Firebase.extrasQuery = {
@@ -89,7 +89,6 @@ export class UsersComponent  implements OnInit {
         this.cargando = true;
         this.enableMore = false;
         const path = Models.Auth.PathUsers;
-        const numItems = 2;
         let q: Models.Firebase.whereQuery[];
         q = [ [`email`, '==', data.email] ];
         const response = await this.firestoreService.getDocumentsQuery<Models.Auth.UserProfile>(path, q);
