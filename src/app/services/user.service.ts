@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserService {
 
-  private  authenticationService: AuthenticationService = inject(AuthenticationService)
+  private authenticationService: AuthenticationService = inject(AuthenticationService)
   private firestoreService: FirestoreService = inject(  FirestoreService);
   private user: User;
   private userProfile: Models.Auth.UserProfile;
@@ -55,6 +55,11 @@ export class UserService {
           return; 
         }
 
+        if (this.userProfile) {
+          resolve(this.userProfile);
+          return;
+        }
+
         const response = await this.firestoreService.getDocument<Models.Auth.UserProfile>(`${Models.Auth.PathUsers}/${uid}`)
         if (response.exists()) {  
             this.userProfile = response.data();
@@ -72,6 +77,8 @@ export class UserService {
 
   isLogin() {
     return new Promise<boolean>( async (resolve) => {
+      console.log('isLogin');
+      
       const user = await this.getState();
       if (user) {
         resolve(true);

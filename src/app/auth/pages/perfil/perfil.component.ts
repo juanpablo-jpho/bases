@@ -55,19 +55,22 @@ export class PerfilComponent  implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-              private router: Router) { 
+              private router: Router) {
+                
+    this.user = this.authenticationService.getCurrentUser()
+    this.getDatosProfile(this.user.uid);
 
-    this.iniciando = true;
-    this.authenticationService.authState.subscribe( res => {
-        console.log('res -> ', res);
-        if (res) {
-          this.user = res
-          this.getDatosProfile(res.uid);
-        } else {
-          this.user = null
-          this.iniciando = false;
-        }
-    });
+    // this.iniciando = true;
+    // this.authenticationService.authState.subscribe( res => {
+    //     console.log('res -> ', res);
+    //     if (res) {
+    //       this.user = res
+    //       this.getDatosProfile(res.uid);
+    //     } else {
+    //       this.user = null
+    //       this.iniciando = false;
+    //     }
+    // });
           
     
   }

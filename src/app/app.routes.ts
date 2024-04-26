@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-    canActivate: [guards.simple('hola')]
+    // canActivate: [guards.simple('hola')]
   },
   {
     path: 'home',
