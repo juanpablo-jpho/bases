@@ -5,15 +5,16 @@ import { UserService } from "src/app/services/user.service";
 
 export namespace guards {
 
-  export const isLogin = (path: string = null) : CanActivateFn => {
-    console.log('isLogin guard');
+  export const isLogin = (path: string = '/home') : CanActivateFn => {
+    console.log('isLogin guard -> ', path);
     const validador = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {      
       const userService: UserService = inject(UserService);
       const router: Router = inject(Router);
+
       const login = await userService.isLogin();
       console.log('isLogin -> ', login);
       if (!login) {
-          router.navigate([path ? path: '/']);
+          router.navigate([path]);
           return false;
       }
       return true;
@@ -21,7 +22,7 @@ export namespace guards {
     return validador;
   }
 
-  export const notLogin = (path: string = null) : CanActivateFn => {
+  export const notLogin = (path: string = '/home') : CanActivateFn => {
     console.log('notLogin guard');
     const validador = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {      
       const userService: UserService = inject(UserService);
@@ -37,7 +38,7 @@ export namespace guards {
     return validador;
   }
 
-  export const isRol = (roles: Models.Auth.Rol[], path: string = null) : CanActivateFn => {
+  export const isRol = (roles: Models.Auth.Rol[], path: string = '/home') : CanActivateFn => {
       console.log('isRol -> ', roles);
       const validador = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
         let valid = false;
@@ -56,79 +57,18 @@ export namespace guards {
             });
         }
         if (!valid) {
-            router.navigate([path ? path: '/'])
+            router.navigate([path])
         }
         console.log('valid -> ', valid);
         return valid;
       }
-
       return validador;
     
   }
-  
-  export const simpleConArgumentos = (params: any): CanActivateFn => {
-        console.log('simpleConArgumentos params -> ', params);
-        const validador = (route: any, state: any) => {
-            console.log('route -> ', route);
-            console.log('state -> ', state);
-            return true
-        } 
-        return validador
-  } 
+
+
+
 
 }
 
 
-// export const simple: CanActivateFn = () => { return true }   
-
-// export const simple: CanActivateFn = () => {
-//     console.log('simple guard');
-//     return true
-// } 
-
-// export const simple: CanActivateFn = (route: any, state: any) => {
-//     console.log('simple guard');
-//     console.log('route -> ', route);
-//     console.log('state -> ', state);
-//     return true
-// } 
-
-export const simple: CanActivateFn = (route: any, state: any) => {
-        console.log('simple guard');
-        console.log('route -> ', route);
-        console.log('state -> ', state);
-        return true
-} 
-
-// export const simpleConArgumentos = () => {
-//     console.log('simpleConArgumentos');
-//     return simple;
-// }
-
-// export const simpleConArgumentos = (params: any) => {
-//     console.log('simpleConArgumentos params -> ', params);
-//     return simple;
-// }
-
-
-// export const simpleConArgumentos = (params: any): CanActivateFn => {
-//     console.log('simpleConArgumentos params -> ', params);
-//     const validador = (route: any, state: any) => {
-//       console.log('validador');
-//       console.log('route -> ', route);
-//       console.log('state -> ', state);
-//       return true
-//     } 
-//     return validador
-// } 
-
-
-export const simpleConArgumentos = (params: any): CanActivateFn => {
-    // recibimos parametros adicionales
-    const validador = (route: ActivatedRouteSnapshot,  state: RouterStateSnapshot) => { 
-        // aqui va la lógica
-        // podemos añadir servicios con inject
-        return true
-    };
-    return validador
-}

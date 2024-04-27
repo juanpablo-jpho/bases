@@ -1,11 +1,8 @@
 import { Routes } from '@angular/router';
-import { guards, simple, simpleConArgumentos } from './shared/guards/guards';
-
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-    // canActivate: [guards.simple('hola')]
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule)
   },
   {
     path: 'home',
@@ -25,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: '',

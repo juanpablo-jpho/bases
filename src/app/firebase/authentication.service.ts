@@ -82,8 +82,10 @@ export class AuthenticationService {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  logout() {
-    return signOut(this.auth);
+  async logout() {
+    // return signOut(this.auth);
+    await signOut(this.auth);
+    window.location.reload();
   }
 
   deleteUser() {

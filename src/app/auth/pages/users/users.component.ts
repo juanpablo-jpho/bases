@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/firebase/authentication.service';
 import { FirestoreService } from 'src/app/firebase/firestore.service';
 import { Models } from 'src/app/models/models';
 
@@ -12,8 +11,6 @@ import { Models } from 'src/app/models/models';
 export class UsersComponent  implements OnInit {
 
   private firestoreService = inject(FirestoreService);
-  private authenticationService: AuthenticationService = inject(AuthenticationService);
-  
 
   roles: Models.Auth.Rol[] = ['admin', 'cliente', 'motorizado'];
   rolSelected: Models.Auth.Rol = 'admin';  
@@ -27,9 +24,7 @@ export class UsersComponent  implements OnInit {
   });
 
   constructor(private fb: FormBuilder) {
-      this.authenticationService.authState.subscribe( res => {
-          this.getMoreUsers();
-      });
+        this.getMoreUsers();
   }
 
   ngOnInit() {}

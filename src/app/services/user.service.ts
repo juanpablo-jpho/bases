@@ -14,7 +14,7 @@ export class UserService {
   private firestoreService: FirestoreService = inject(  FirestoreService);
   private user: User;
   private userProfile: Models.Auth.UserProfile;
-  private login: 'login' | 'not-login';
+  private login: 'login' | 'not-login' ;
 
 
   constructor(private router: Router,

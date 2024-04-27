@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
-import { IsAdminGuard } from '../shared/guards/is-admin.guard';
-
+import { guards } from '../shared/guards/guards';
 
 const routes: Routes = [
-  {path: '', component: NotificationsComponent, canActivate: [IsAdminGuard],}
+  {path: '', component: NotificationsComponent, canActivate: [guards.isLogin()],}
 ];
 
 @NgModule({

@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService } from '../../../firebase/authentication.service';
 import { Models } from 'src/app/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
-import { User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +13,6 @@ export class LoginComponent  implements OnInit {
 
   form: Models.Auth.DatosLogin;
   authenticationService: AuthenticationService = inject(AuthenticationService);
-  user: User;
   cargando: boolean = false;
 
   enableLoginWithEmailAndPassword: boolean = false;
@@ -52,21 +50,8 @@ export class LoginComponent  implements OnInit {
   ] 
 
   constructor(private fb: FormBuilder,
-              private router: Router,
-  ) { 
+              private router: Router) { 
     this.initForm();
-
-    this.cargando = true;
-    this.authenticationService.authState.subscribe( res => {
-        if (res) {
-          this.user = res
-        } else {
-          this.user = null
-        }
-        this.cargando = false;
-    });
-          
-    
   }
 
   ngOnInit() {
@@ -96,7 +81,10 @@ export class LoginComponent  implements OnInit {
   async login() {
     if (this.form?.email && this.form?.password) {
       try {
-        await this.authenticationService.login(this.form.email, this.form.password)
+        await this.authenticationService.login(this.form.email, this.form.password);
+        setTimeout(() => {
+          this.router.navigate(['user', 'perfil'])
+        }, 500);
       } catch (error) {
           console.log('login error -> ', error);
                 

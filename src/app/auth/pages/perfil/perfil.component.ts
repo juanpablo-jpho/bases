@@ -5,6 +5,7 @@ import { FirestoreService } from 'src/app/firebase/firestore.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '@angular/fire/auth';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-perfil',
@@ -15,6 +16,7 @@ export class PerfilComponent  implements OnInit {
 
   authenticationService: AuthenticationService = inject(AuthenticationService);
   firestoreService:   FirestoreService = inject(  FirestoreService);
+  userService: UserService = inject(UserService);
 
   user: User;
 
@@ -57,22 +59,10 @@ export class PerfilComponent  implements OnInit {
   constructor(private fb: FormBuilder,
               private router: Router) {
                 
+    this.iniciando = true;
     this.user = this.authenticationService.getCurrentUser()
     this.getDatosProfile(this.user.uid);
 
-    // this.iniciando = true;
-    // this.authenticationService.authState.subscribe( res => {
-    //     console.log('res -> ', res);
-    //     if (res) {
-    //       this.user = res
-    //       this.getDatosProfile(res.uid);
-    //     } else {
-    //       this.user = null
-    //       this.iniciando = false;
-    //     }
-    // });
-          
-    
   }
 
   ngOnInit() {}
@@ -112,7 +102,7 @@ export class PerfilComponent  implements OnInit {
 
   }
 
-  getDatosProfile(uid: string) {
+  async getDatosProfile(uid: string) {
     console.log('getDatosProfile -> ', uid);
     this.firestoreService.getDocumentChanges<Models.Auth.UserProfile>(`${Models.Auth.PathUsers}/${uid}`).subscribe( res => {
         this.isAdmin = false
@@ -131,11 +121,9 @@ export class PerfilComponent  implements OnInit {
     const user = this.authenticationService.getCurrentUser();
     const updateDoc: any = {
       age: this.userProfile.age,
-      // roles: {admin: true}
     }
     await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${user.uid}`, updateDoc)
     console.log('actualizado con éxito');
-    
   }
 
   async actualizarEmail() {
