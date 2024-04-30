@@ -65,6 +65,7 @@ export class AuthenticationService {
     return reauthenticateWithCredential(this.auth.currentUser, credential)
   }
 
+  
   sendEmailVerification() {
     return sendEmailVerification(this.auth.currentUser)
   }

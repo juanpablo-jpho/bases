@@ -1,0 +1,75 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    match /intentsLogin/{intentId} {
+      allow get: if true;
+      allow create: if true;
+      allow update: if request.auth != null;
+      allow delete: if true;
+    }
+
+		function isRol(rol) {
+    	return get(/databases/$(database)/documents/Users/$(request.auth.uid)).data.roles[rol] == true;
+    }
+    
+
+    
+    match /Products/{docId} {
+       //allow read, write: if <some_condition>;
+    // allow read: if request.auth != null; 
+    //   allow write: if false;
+      
+      
+       allow get: if true;
+       //allow get: if resource.data.enable == true;
+       allow list: if true;
+       // allow list: if resource.data.enable == true;
+    //   allow list: if request.query.limit <= 2;
+  
+       allow create: if false;
+       allow update: if true;
+       allow delete: if false;
+    
+    }
+    
+    
+    match /Users/{userId} {
+   // allow write: if request.auth.uid == userId;
+    
+  
+                       
+                       
+      allow create: if ( request.auth.uid == userId 
+      								&& !request.resource.data.roles.keys().hasAny(['admin'])
+                       ) || isRol('admin');
+                       
+      allow update: if ( request.auth.uid == userId 
+      								&& request.resource.data.roles == resource.data.roles
+                       ) || request.auth.token.roles.admin == true;  
+                       
+                       
+      allow delete: if request.auth.uid == userId || isRol('admin');                
+                       
+      allow get: if request.auth.uid == userId || isRol('admin');  
+      
+      allow list: if true;
+      // isRol('admin');
+      
+  
+      match /pedidos/{pedidoId} {
+        	allow read: if true;
+      }
+       
+    }
+    
+    match /{path=**}/pedidos/{pedidoId} {
+   		allow read: if false;
+    }
+    
+    //allow get: if resource.data.enable == true;
+    
+    
+  }
+}

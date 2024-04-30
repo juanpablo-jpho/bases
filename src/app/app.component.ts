@@ -5,6 +5,8 @@ import { Models } from './models/models';
 import { arrayRemove, average, count, deleteField, increment, sum } from '@angular/fire/firestore';
 import { AuthenticationService } from './firebase/authentication.service';
 import { UserService } from './services/user.service';
+import { WebService } from './services/web.service';
+
 
 @Component({
   selector: 'app-root',
@@ -15,8 +17,9 @@ import { UserService } from './services/user.service';
 export class AppComponent {
 
   private firestoreService = inject(FirestoreService);
-  private  authenticationService: AuthenticationService = inject(AuthenticationService);
+  private authenticationService: AuthenticationService = inject(AuthenticationService);
   private userService: UserService = inject(UserService);
+  private webService: WebService = inject(WebService);
   
   constructor() {
     // this.saveProduct();
@@ -28,8 +31,25 @@ export class AppComponent {
     // this.getAggregate();
     // this.registrarse()
     // this.login() 
+    // this.helloWorld();
 
   }
+
+  async helloWorld() {
+    const url = 'http://127.0.0.1:5001/basesfire/us-central1';
+
+    const data = {
+      num1: 5,
+      num2: 10
+    }
+    const response = await this.webService.request('POST', url, 'helloWorld', data);
+    console.log('response -> ', response);
+    
+  }
+  
+
+
+
 
   async registrarse() {
     const form = {email: 'juan@gmail.com', password: '123456'};

@@ -6,7 +6,8 @@ import { Injectable, inject } from '@angular/core';
 })
 export class WebService {
 
-  private httpClient = inject(HttpClient)  
+  private httpClient = inject(HttpClient) 
+  token: string;
 
   constructor() { }
 
@@ -14,8 +15,8 @@ export class WebService {
     return new Promise<Response>((resolve) => { 
 
       const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${this.token}`
+        'content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
       })
 
       if (type == 'POST') {

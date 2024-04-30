@@ -4,6 +4,7 @@ import { User } from '@angular/fire/auth';
 import { FirestoreService } from '../firebase/firestore.service';
 import { Models } from '../models/models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { WebService } from './web.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class UserService {
 
   private authenticationService: AuthenticationService = inject(AuthenticationService)
   private firestoreService: FirestoreService = inject(  FirestoreService);
+  private webService: WebService = inject(WebService)
   private user: User;
   private userProfile: Models.Auth.UserProfile;
   private login: 'login' | 'not-login' ;
@@ -35,6 +37,12 @@ export class UserService {
             if (res) {
               this.user = res;
               this.login = 'login';
+              console.log('authState -> ', this.user);
+              this.user.getIdToken().then( token => {
+                // console.log('token -> ', token);
+                this.webService.token = token;
+              });
+              this.getRol();
               this.getUserProfile(res.uid);
             } else {
               this.user = null
@@ -86,6 +94,16 @@ export class UserService {
         resolve(false);
       }
     })
+  }
+
+  async getRol() {    
+    const tokenResult = await this.user.getIdTokenResult(true);
+    console.log('tokenResult -> ', tokenResult);
+    const claims: any = tokenResult.claims;
+    if (claims.roles) {
+      return claims.roles
+    }
+    return null;
   }
 
 

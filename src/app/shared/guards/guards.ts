@@ -66,6 +66,37 @@ export namespace guards {
     
   }
 
+  export const isRolClaim = (roles: Models.Auth.Rol[], path: string = '/home') : CanActivateFn => {
+    console.log('isRolClaim -> ', roles);
+    const validador = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+      let valid = false;
+      const userService: UserService = inject(UserService);
+      const router: Router = inject(Router);
+      const user = await userService.getState();
+      if (user) {
+          const tokenResult = await user.getIdTokenResult(true);
+          const claims: any = tokenResult.claims;
+          if (claims.roles) {
+            roles.every( rol => {
+              if (claims.roles[rol] == true) {
+                valid = true;
+                return false;
+              }
+              return true;
+            });
+
+          }
+      }
+      if (!valid) {
+          router.navigate([path])
+      }
+      console.log('valid -> ', valid);
+      return valid;
+    }
+    return validador;
+  
+  }
+
 
 
 

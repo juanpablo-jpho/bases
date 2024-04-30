@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '@angular/fire/auth';
 import { UserService } from 'src/app/services/user.service';
+import { FunctionsService } from 'src/app/firebase/functions.service';
 
 @Component({
   selector: 'app-perfil',
@@ -17,6 +18,7 @@ export class PerfilComponent  implements OnInit {
   authenticationService: AuthenticationService = inject(AuthenticationService);
   firestoreService:   FirestoreService = inject(  FirestoreService);
   userService: UserService = inject(UserService);
+  private functionsService: FunctionsService = inject(FunctionsService);
 
   user: User;
 
@@ -62,10 +64,18 @@ export class PerfilComponent  implements OnInit {
     this.iniciando = true;
     this.user = this.authenticationService.getCurrentUser()
     this.getDatosProfile(this.user.uid);
+    this.getIsAdmin();
+    // this.appCall();
 
   }
 
   ngOnInit() {}
+
+  async appCall() {
+    const response = await this.functionsService.call<any, any>('appCall')
+    console.log('response -> ', response);
+    
+  } 
 
   ionViewDidEnter() {
     const user = this.authenticationService.getCurrentUser();
@@ -102,16 +112,24 @@ export class PerfilComponent  implements OnInit {
 
   }
 
+  async getIsAdmin() {
+      this.isAdmin = false;
+      const roles = await this.userService.getRol();
+      if (roles.admin) {
+        this.isAdmin = true;
+      }
+  }
+
   async getDatosProfile(uid: string) {
     console.log('getDatosProfile -> ', uid);
     this.firestoreService.getDocumentChanges<Models.Auth.UserProfile>(`${Models.Auth.PathUsers}/${uid}`).subscribe( res => {
-        this.isAdmin = false
+        // this.isAdmin = false
         if (res) {  
           this.userProfile = res;
           console.log('this.userProfile -> ', this.userProfile);
-          if (this.userProfile.roles?.admin == true) {
-            this.isAdmin = true;
-          }
+          // if (this.userProfile.roles?.admin == true) {
+          //   this.isAdmin = true;
+          // }
         }
         this.iniciando = false;
     });
