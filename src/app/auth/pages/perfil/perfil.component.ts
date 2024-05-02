@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { User } from '@angular/fire/auth';
 import { UserService } from 'src/app/services/user.service';
 import { FunctionsService } from 'src/app/firebase/functions.service';
+import { StorageService } from 'src/app/firebase/storage.service';
 
 @Component({
   selector: 'app-perfil',
@@ -19,6 +20,7 @@ export class PerfilComponent  implements OnInit {
   firestoreService:   FirestoreService = inject(  FirestoreService);
   userService: UserService = inject(UserService);
   private functionsService: FunctionsService = inject(FunctionsService);
+  storageService: StorageService = inject(StorageService);
 
   user: User;
 
@@ -56,6 +58,7 @@ export class PerfilComponent  implements OnInit {
   enableDeletePassword: boolean = false;
 
   isAdmin: boolean = false;
+  newImage: File;
 
 
   constructor(private fb: FormBuilder,
@@ -115,7 +118,7 @@ export class PerfilComponent  implements OnInit {
   async getIsAdmin() {
       this.isAdmin = false;
       const roles = await this.userService.getRol();
-      if (roles.admin) {
+      if (roles?.admin) {
         this.isAdmin = true;
       }
   }
@@ -205,6 +208,34 @@ export class PerfilComponent  implements OnInit {
         console.log('error al eliminar la cuenta -> ', error);
         console.log('¿Deseas cerrar sesión y volver a ingresar para realizar esta acción?');
       }
+  }
+
+  async downloadProfilePicture() {
+    await this.storageService.downloadFile(this.userProfile.photo);
+    console.log('imagen descargada con éxito');
+  }
+
+  async editarProfilePicture() {
+    console.log('subiendo...');
+    const folder = `PhotosPerfil/${this.user.uid}`;
+    const name = this.newImage.name;
+    const snapshot = await this.storageService.uploadFile(folder, name, this.newImage)
+    const url = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
+    await this.authenticationService.updateProfile({photoURL: url});
+    const updateDoc: any = {
+      photo: url
+    }
+    await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${this.user.uid}`, updateDoc);
+    this.user = this.authenticationService.getCurrentUser(); 
+    console.log('actualizado con éxito');
+    this.newImage = null;
+  }
+
+  async viewPreview(input: HTMLInputElement) {
+    if (input.files.length) {
+        const files = input.files;
+        this.newImage = files.item(0);
+    }
   }
 
 }

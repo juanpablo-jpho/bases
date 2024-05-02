@@ -12,7 +12,7 @@ import { guards } from '../shared/guards/guards';
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [guards.notLogin('/user/perfil')]},
   {path: 'request-login', component: RequestLoginComponent},
-  {path: 'registro', component: RegistroComponent, canActivate: [guards.isLogin()]},
+  {path: 'registro', component: RegistroComponent, canActivate: [guards.notLogin('/user/perfil')]},
   {path: 'completar-registro', component: CompletarRegistroComponent, canActivate: [guards.isLogin()]},
   {path: 'perfil', component: PerfilComponent, canActivate: [guards.isLogin()]},
   // {path: 'admin', component: UsersComponent, canActivate: [guards.isRol(['admin'])]}

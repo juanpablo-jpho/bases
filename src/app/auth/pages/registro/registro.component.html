@@ -55,13 +55,24 @@
     
           <!-- foto -->
           <div class="input-content">
-            <label>Foto</label>
-            <input formControlName="photo" type="string">
+
+            <input #files (change)="viewPreview(files)" type="file" 
+            style='display: none;' accept="image/*">
+            <div>
+              <label>Foto</label>
+              <button type="button" class="button-image" (click)="files.click()">cargar imagen</button>
+            </div>
             <span style="text-align: end;"
                 *ngIf="datosForm.controls['photo'].hasError('required')">
               <i>Este campo es <strong>requerido</strong></i>  
             </span>
+            @if (datosForm?.controls?.photo?.value) {
+              <div style="text-align: center;">
+                <img [src]="datosForm.controls.photo.value">
+              </div>
+            }
           </div>
+
     
           <!-- enviar -->
           <div style="text-align: center">
@@ -79,4 +90,27 @@
         <button class="ingresar" [routerLink]="['/user/login']" >Ingresar</button>
       </div>
 
+
+      <h1>Storage</h1>
+
+      <!-- subir directamente -->
+      <label for="fileUpload">Choose a File</label>
+      <input id="fileUpload" type="file" #upload multiple accept="image/*, .pdf">
+      <button type="button" (click)="uploadFile(upload)">Upload {{progress}}%</button>
+
+      <!-- previsualizar antes de subir -->
+      <!-- <label for="fileUpload">Choose a File</label> -->
+      <!-- <input id="fileUpload" type="file" #upload accept="image/*, .pdf"
+      (change)="viewPreview(upload)" > -->
+
+
+      <!-- <input #files (change)="viewPreview(files)" type="file" 
+             style='display: none;' accept="image/*">
+      <div>
+        <button type="button" (click)="files.click()">cargar imagen</button>
+      </div> -->
+
+
+
+      
 </ion-content>

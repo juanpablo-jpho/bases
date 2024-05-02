@@ -6,11 +6,13 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, initializeFirestore, persistentLocalCache, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, indexedDBLocalPersistence, initializeAuth, provideAuth } from '@angular/fire/auth';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { FileSaverModule } from 'ngx-filesaver';
 
 if (environment.production) {
   enableProdMode();
@@ -22,8 +24,8 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes),
     provideHttpClient(),
+
     // firebase
-    
     importProvidersFrom(provideFirebaseApp(() => {
       const app = initializeApp(environment.firebaseConfig);
         initializeFirestore(app, {
@@ -36,7 +38,10 @@ bootstrapApplication(AppComponent, {
     })),
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(provideAuth(() => getAuth())),   
-    importProvidersFrom(provideFunctions(() => getFunctions()))
+    importProvidersFrom(provideFunctions(() => getFunctions())),
+    importProvidersFrom(provideStorage(() => getStorage())),
+    FileSaverModule
+
   ],
   
 });

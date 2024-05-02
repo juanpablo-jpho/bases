@@ -1,9 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/firebase/authentication.service';
 import { Models } from 'src/app/models/models';
 import { FirestoreService } from '../../../firebase/firestore.service';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/firebase/storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -14,7 +16,9 @@ import { Router } from '@angular/router';
 export class RegistroComponent  implements OnInit {
 
   authenticationService: AuthenticationService = inject(AuthenticationService);
-  firestoreService:   FirestoreService = inject(  FirestoreService);
+  firestoreService: FirestoreService = inject(  FirestoreService);
+  storageService: StorageService = inject(StorageService);
+  userService: UserService = inject(UserService);
  
   datosForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
@@ -26,9 +30,13 @@ export class RegistroComponent  implements OnInit {
 
   cargando: boolean = false;
 
+  progress = '0';
+  nameImage: string;
+
 
   constructor(private fb: FormBuilder,
-              private router: Router) {}
+              private router: Router,
+              private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {}
 
@@ -39,7 +47,16 @@ export class RegistroComponent  implements OnInit {
       const data = this.datosForm.value;
       console.log('valid -> ', data);
       try {
+
+        this.userService.validateHasProfile = false;
         const res =  await this.authenticationService.createUser(data.email, data.password)
+        const blob = await this.storageService.urlToBlob(data.photo);        
+        const folder = `PhotosPerfil/${res.user.uid}`;
+        const name = this.nameImage
+        const snapshot = await this.storageService.uploadFile(folder, name, blob);
+        const ulrStorage = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
+        data.photo = ulrStorage;
+        console.log('ulrStorage -> ', ulrStorage);
         let profile: Models.Auth.UpdateProfileI = {
           displayName: data.name,
           photoURL: data.photo
@@ -65,6 +82,59 @@ export class RegistroComponent  implements OnInit {
       }
     }
     this.cargando = false;
+  }
+
+  async uploadFile(input: HTMLInputElement) {
+    if (input.files.length) {
+        const files = input.files;
+        console.log('files -> ', files);
+        const folder = 'PhotosPerfil'
+        for (let i = 0; i < files.length; i++) {
+            const file = files.item(i)
+            if (file) {
+
+              // subir y esperar una promesa
+              // const snapshot = await this.storageService.uploadFile(folder, file.name, file)
+              // console.log('snapshot -> ', snapshot); 
+              // const url = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
+              // console.log('url -> ', url);
+              return;
+
+              // subir y ver el progreso
+              const s = this.storageService.uploadFileProgress(folder, file.name, file).subscribe( res => {
+                  console.log('uploadFileProgress -> ', res);
+                  if (res.progress) {
+                    this.progress = res.progress.toFixed(2);
+                    console.log('this.progress -> ', this.progress);
+                    this.changeDetectorRef.detectChanges();
+                  }
+                  if (res.type == 'complete') {
+                    s.unsubscribe();
+                  }
+              });
+    
+            }
+        }
+    }
+
+  }
+
+  async viewPreview(input: HTMLInputElement) {
+    if (input.files.length) {
+        const files = input.files;
+        const url = this.storageService.fileToUlr(files.item(0));
+        this.datosForm.controls.photo.setValue(url);
+        this.nameImage = files.item(0).name;
+
+
+        // const blob = await this.storageService.urlToBlob(url);
+        // const folder = `PhotoPerfil/938dhdh37347j`;
+        // const name = files.item(0).name;
+        // const snapshot = await this.storageService.uploadFile(folder, name, blob);
+        // const ulrStorage = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
+        // this.datosForm.controls.photo.setValue(ulrStorage);
+        // console.log('ulrStorage -> ', ulrStorage);
+    }
   }
 
 

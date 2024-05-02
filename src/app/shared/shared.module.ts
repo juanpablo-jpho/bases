@@ -6,13 +6,16 @@ import { NotificationsModule } from '../notifications/notifications.module';
 import { RouterModule } from '@angular/router';
 import { DetailCarritoComponent } from './components/detail-carrito/detail-carrito.component';
 import { ShortPipe } from './pipes/short.pipe';
+import { FiletourlPipe } from './pipes/filetourl.pipe';
+
 
 @NgModule({
   declarations: [
     FooterComponent,
     HeaderComponent,
     DetailCarritoComponent,
-    ShortPipe
+    ShortPipe,
+    FiletourlPipe
   ],
   imports: [
     CommonModule,
@@ -23,7 +26,8 @@ import { ShortPipe } from './pipes/short.pipe';
     FooterComponent,
     HeaderComponent,
     DetailCarritoComponent,
-    ShortPipe
+    ShortPipe,
+    FiletourlPipe
   ]
 })
 export class SharedModule { }

@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../firebase/authentication.service'
 import { OAuthProvider } from '@angular/fire/auth';
 import { Models } from 'src/app/models/models';
 import { FirestoreService } from '../../../firebase/firestore.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-request-login',
@@ -14,6 +15,7 @@ export class RequestLoginComponent  implements OnInit {
 
   private authenticationService: AuthenticationService = inject(AuthenticationService);
   private firestoreService: FirestoreService = inject(FirestoreService);
+  userService: UserService = inject(UserService);
 
   message: string = 'procesando...';
 
@@ -22,6 +24,7 @@ export class RequestLoginComponent  implements OnInit {
 
                 this.getQueryParams();
                 this.getTokenOfProvider();
+                this.userService.validateHasProfile = false;
   }
 
   ngOnInit() {}

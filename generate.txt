@@ -49,3 +49,16 @@ ionic g c auth/pages/users --spec=false
 ionic g c auth/components/user-detail --spec=false
 
 ionic g s services/user
+
+
+ionic g s firebase/storage
+
+
+
+
+
+
+
+
+
+ionic g pipe /shared/pipes/filetourl

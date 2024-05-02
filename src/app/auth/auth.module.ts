@@ -11,6 +11,7 @@ import { CompletarRegistroComponent } from './pages/completar-registro/completar
 import { RequestLoginComponent } from './pages/request-login/request-login.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     AuthRoutingModule,
     IonContent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

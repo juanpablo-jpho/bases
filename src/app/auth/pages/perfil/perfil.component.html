@@ -10,8 +10,20 @@
         <h3> <i>Bienvienido</i> </h3>
         @if (user.photoURL) {
           <div>
-            <img [src]="user.photoURL">
+            @if(!newImage) {
+              <img [src]="user.photoURL">
+            } @else {
+              <img [src]="newImage | filetourl">
+            }
           </div>
+          <button (click)="downloadProfilePicture()">descargar</button>
+
+          <input #files (change)="viewPreview(files)" type="file" 
+                 style='display: none;' accept="image/*">
+          <button (click)="files.click()">editar</button>
+          @if (newImage) {
+            <button (click)="editarProfilePicture()">subir</button>
+          }
         } @else {
           <div>
             <img src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg">

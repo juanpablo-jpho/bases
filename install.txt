@@ -9,3 +9,12 @@ npm install @capacitor/android@{version}
 npm install @capacitor/ios@5
 
 npx cap add android   
+
+
+https://cloud.google.com/storage/docs/gsutil_install?hl=es-419#windows
+gcloud auth login
+gsutil cors set cors.json gs://<your-cloud-storage-bucket>
+gsutil cors set cors.json gs://otra-app-645d0.appspot.com
+
+
+https://www.npmjs.com/package/ngx-filesaver

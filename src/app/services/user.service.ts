@@ -18,6 +18,8 @@ export class UserService {
   private userProfile: Models.Auth.UserProfile;
   private login: 'login' | 'not-login' ;
 
+  validateHasProfile: boolean = true;
+
 
   constructor(private router: Router,
               private route: ActivatedRoute) { 
@@ -43,7 +45,9 @@ export class UserService {
                 this.webService.token = token;
               });
               this.getRol();
-              this.getUserProfile(res.uid);
+              if (this.validateHasProfile) {
+                this.getUserProfile(res.uid);
+              }
             } else {
               this.user = null
               this.login = 'not-login';
@@ -56,12 +60,12 @@ export class UserService {
   async getUserProfile(uid: string) {
     return new Promise<Models.Auth.UserProfile>( async (resolve) => {
 
-        const queryParams: any = this.route.snapshot.queryParams;
-        const intentId = queryParams.intentId
-        if (intentId) { 
-          resolve(null)
-          return; 
-        }
+        // const queryParams: any = this.route.snapshot.queryParams;
+        // const intentId = queryParams.intentId
+        // if (intentId) { 
+        //   resolve(null)
+        //   return; 
+        // }
 
         if (this.userProfile) {
           resolve(this.userProfile);
@@ -98,7 +102,7 @@ export class UserService {
 
   async getRol() {    
     const tokenResult = await this.user.getIdTokenResult(true);
-    console.log('tokenResult -> ', tokenResult);
+    // console.log('tokenResult -> ', tokenResult);
     const claims: any = tokenResult.claims;
     if (claims.roles) {
       return claims.roles
