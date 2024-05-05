@@ -52,12 +52,7 @@ ionic g s services/user
 
 
 ionic g s firebase/storage
-
 ionic g pipe /shared/pipes/filetourl
-
-
-
-
-
-
 ionic g pipe /shared/pipes/reftourl
+
+ionic g s firebase/analytics

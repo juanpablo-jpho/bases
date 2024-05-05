@@ -4,7 +4,8 @@ import { Models } from '../models/models';
 import { DocumentSnapshot, Firestore, QuerySnapshot, and, average, collection, 
   collectionData, collectionGroup, deleteDoc, doc, docData, getAggregateFromServer, 
   getCountFromServer, getDoc, getDocs, limit, or, orderBy, query, serverTimestamp, 
-  setDoc, startAfter, sum, updateDoc, where, PersistentLocalCache  } from '@angular/fire/firestore';
+  setDoc, startAfter, sum, updateDoc, where} from '@angular/fire/firestore';
+import { WhereFilterOp } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -102,6 +103,12 @@ export class FirestoreService {
 
       let q = this.getQuery(path, querys, extras)
       return collectionData(q) as Observable<tipo[]>;
+  }
+
+  async getDocumentsOneQuery<tipo>(path: string, campo: string, condicion: WhereFilterOp, valor: string) {
+    let ref = collection(this.firestore, path);
+    let q = query(ref, where(campo, condicion, valor))
+    return await getDocs(q) as QuerySnapshot<tipo>;
   }
 
 //----------------//

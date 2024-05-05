@@ -1,23 +1,25 @@
 
 @if (item) {
   <div class="content-item" [ngStyle]="{'background': color, 'border-radius': '10px'}">
-    <div>
-      <h3>{{item.name}}</h3>
-    </div>
-    <div>
-      <p>{{item.description}}</p>
-    </div>
-    @if (item.image) {
+    <div [routerLink]="['/store/item/', item.enlace]">
       <div>
-        <img [src]="item.image" [alt]="item.name">
+        <h3>{{item.name}}</h3>
       </div>
-    } @else {
-      <img src="/assets/images/default.webp">
-    }
-    <div>
-      <p style="text-align: end">
-        <strong>{{item.price | currency}}</strong>  
-      </p>
+      <div>
+        <p>{{item.description}}</p>
+      </div>
+      @if (item.image) {
+        <div>
+          <img [src]="item.image" [alt]="item.name">
+        </div>
+      } @else {
+        <img src="/assets/images/default.webp">
+      }
+      <div>
+        <p style="text-align: end">
+          <strong>{{item.price | currency}}</strong>  
+        </p>
+      </div>
     </div>
   
     <div style="text-align: end">
@@ -25,5 +27,6 @@
       <span>{{cantidad}}</span> 
       <button (click)="addItem()" class="button-add">+</button>
     </div>
+
   </div>
 }

@@ -6,6 +6,7 @@ import { arrayRemove, average, count, deleteField, increment, sum } from '@angul
 import { AuthenticationService } from './firebase/authentication.service';
 import { UserService } from './services/user.service';
 import { WebService } from './services/web.service';
+import { AnalyticsService } from './firebase/analytics.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class AppComponent {
   private authenticationService: AuthenticationService = inject(AuthenticationService);
   private userService: UserService = inject(UserService);
   private webService: WebService = inject(WebService);
+  private analyticsService: AnalyticsService = inject(AnalyticsService);
   
   constructor() {
     // this.saveProduct();

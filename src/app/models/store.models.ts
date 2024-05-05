@@ -12,6 +12,7 @@ export namespace ModelsStore {
         enable: boolean;
         categories: string[];
         salty?: boolean;
+        enlace?: string
     }
     export interface Pedido {
         

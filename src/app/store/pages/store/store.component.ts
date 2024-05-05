@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FirestoreService } from 'src/app/firebase/firestore.service';
 import { Models } from 'src/app/models/models';
 import { DatabaseService } from 'src/app/services/database.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -30,12 +31,20 @@ export class StoreComponent  implements OnInit {
 
 
 
-  constructor() {
+  constructor(private title: Title) {
     // this.loadItems();
     this.getProductsByCategoria();
   }
 
-  ngOnInit() {}
+
+
+  ngOnInit() {
+
+  }
+
+  ionViewDidEnter() {
+    this.title.setTitle('Tienda')
+  }
 
   loadItems() {
       setTimeout(() => {

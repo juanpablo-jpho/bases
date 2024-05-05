@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, inject} from '@angular/core';
 import { Models } from 'src/app/models/models';
 import { CarritoService } from 'src/app/services/carrito.service';
+import { AnalyticsService } from '../../../firebase/analytics.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,16 +12,11 @@ export class ProductDetailComponent  implements OnInit {
 
   @Input() item: Models.Store.Item
 
-
-
-
-
-
-  
   cantidad: number = 0;
   color: 'aliceblue' | '#fde2e2' | '#dfe7d6' = 'aliceblue';
 
   private carritoService  = inject(CarritoService)
+  private analyticsService  = inject(AnalyticsService)
 
   constructor() {}
 
@@ -32,6 +28,7 @@ export class ProductDetailComponent  implements OnInit {
       console.log('additem');
       this.cantidad ++;
       this.carritoService.addItem(this.item)
+      this.analyticsService.registerEvent('add_item', {value: this.item.price, nameItem: this.item.name})
   }
 
 

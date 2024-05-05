@@ -5,6 +5,39 @@
   <button class="back" [routerLink]="['/store/home']">back</button>
 
   <h1>Product</h1>
+
+  @if (item) {
+    <div class="content-item">
+      <div>
+        <div>
+          <h3>{{item.name}}</h3>
+        </div>
+        <div>
+          <p>{{item.description}}</p>
+        </div>
+        @if (item.image) {
+          <div>
+            <img [src]="item.image" [alt]="item.name">
+          </div>
+        } @else {
+          <img src="/assets/images/default.webp">
+        }
+        <div>
+          <p style="text-align: end">
+            <strong>{{item.price | currency}}</strong>  
+          </p>
+        </div>
+      </div>
+    
+      <!-- <div style="text-align: end">
+        <button (click)="removeItem()"  class="button-remove">-</button>
+        <span>{{cantidad}}</span> 
+        <button (click)="addItem()" class="button-add">+</button>
+      </div> -->
+  
+    </div>
+  }
+  
   
   <app-footer></app-footer>
 

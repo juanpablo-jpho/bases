@@ -13,6 +13,8 @@ import { getAuth, indexedDBLocalPersistence, initializeAuth, provideAuth } from 
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { FileSaverModule } from 'ngx-filesaver';
+import { ScreenTrackingService, getAnalytics, provideAnalytics, UserTrackingService } from '@angular/fire/analytics';
+
 
 if (environment.production) {
   enableProdMode();
@@ -24,6 +26,7 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes),
     provideHttpClient(),
+    FileSaverModule,
 
     // firebase
     importProvidersFrom(provideFirebaseApp(() => {
@@ -40,7 +43,9 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(provideAuth(() => getAuth())),   
     importProvidersFrom(provideFunctions(() => getFunctions())),
     importProvidersFrom(provideStorage(() => getStorage())),
-    FileSaverModule
+    importProvidersFrom(provideAnalytics(() => getAnalytics() )),
+    ScreenTrackingService,
+    UserTrackingService
 
   ],
   
