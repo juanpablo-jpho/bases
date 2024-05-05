@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { DetailCarritoComponent } from './components/detail-carrito/detail-carrito.component';
 import { ShortPipe } from './pipes/short.pipe';
 import { FiletourlPipe } from './pipes/filetourl.pipe';
-
+import { ReftourlPipe } from './pipes/reftourl.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { FiletourlPipe } from './pipes/filetourl.pipe';
     HeaderComponent,
     DetailCarritoComponent,
     ShortPipe,
-    FiletourlPipe
+    FiletourlPipe,
+    ReftourlPipe
   ],
   imports: [
     CommonModule,
@@ -27,7 +28,8 @@ import { FiletourlPipe } from './pipes/filetourl.pipe';
     HeaderComponent,
     DetailCarritoComponent,
     ShortPipe,
-    FiletourlPipe
+    FiletourlPipe,
+    ReftourlPipe
   ]
 })
 export class SharedModule { }

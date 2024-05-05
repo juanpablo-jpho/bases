@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FiletourlPipe implements PipeTransform {
 
-  transform(file: File): unknown {
-    return URL.createObjectURL(file);;
+  transform(file: File): string {
+    return URL.createObjectURL(file);
   }
 
 }

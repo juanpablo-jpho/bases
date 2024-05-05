@@ -6,7 +6,8 @@ import { FirestoreService } from '../../../firebase/firestore.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/firebase/storage.service';
 import { UserService } from 'src/app/services/user.service';
-
+import { Browser } from '@capacitor/browser';
+import { ListResult } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-registro',
@@ -24,50 +25,104 @@ export class RegistroComponent  implements OnInit {
     email: ['', [Validators.required, Validators.email]], 
     password: ['', Validators.required],
     name: ['', Validators.required],
-    photo: ['', Validators.required],
+    photo: [null, Validators.required],
     age: [null, Validators.required],
   });
 
   cargando: boolean = false;
 
   progress = '0';
-  nameImage: string;
+  
+  file: File;
+  image: string = 'PhotosPerfil/rJJyrxNgAubGCpuupTdlmRd1XYZ2/beautiful-latin-woman-avatar-character-icon-free-vector.jpg';
+  // image = 'PhotosPerfil/icon-5887113_1280.png'
+  video: string;
+
+  fileFirestore: string = 'PhotosPerfil/young-smiling-man-avatar-brown-600nw-2261401207.webp'
+  results: ListResult;
 
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private changeDetectorRef: ChangeDetectorRef) {}
+              private changeDetectorRef: ChangeDetectorRef) {
+              }
 
-  ngOnInit() {}
+  async ngOnInit() {
+
+      //  this.image = await this.storageService.getDownloadURL(this.image);
+      const folder = 'PhotosPerfil';
+      // const res = await this.storageService.listAll(folder);
+      console.log('image -> ', this.image);
+
+      // const metadata = await this.storageService.getMetadata(this.fileFirestore);
+      // console.log('metadata -> ', metadata);
+
+
+      
+
+      
+      
+  }
+
+  async eliminar() {
+    try {
+      await this.storageService.deleteFile(this.fileFirestore);
+      console.log('eliminado con éxito');
+      
+    } catch (error) {
+      console.log('error al eliminar -> ', error);
+      
+    }
+  }
+
+  async getMoreFiles() {
+    console.log('getMoreFiles');
+    const folder = 'PhotosPerfil';
+    let pageToken = null;
+    if (this.results) {
+      if (!this.results.nextPageToken) {
+        return;
+      }
+      pageToken = this.results.nextPageToken;
+    }
+    const res = await this.storageService.list(folder, 1, pageToken);
+    if (this.results) {
+      res.items.unshift(...this.results.items)
+      res.prefixes.unshift(...this.results.prefixes)
+    } 
+    this.results = res;
+    console.log('this.results -> ', this.results);
+    
+  }
 
   async registrarse() {
     this.cargando = true;
     console.log('datosForm -> ', this.datosForm);
-    if (this.datosForm.valid) {
+    // if (this.datosForm.valid) {
       const data = this.datosForm.value;
       console.log('valid -> ', data);
       try {
 
+        const foto: File = data.photo;
         this.userService.validateHasProfile = false;
         const res =  await this.authenticationService.createUser(data.email, data.password)
-        const blob = await this.storageService.urlToBlob(data.photo);        
         const folder = `PhotosPerfil/${res.user.uid}`;
-        const name = this.nameImage
-        const snapshot = await this.storageService.uploadFile(folder, name, blob);
-        const ulrStorage = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
-        data.photo = ulrStorage;
-        console.log('ulrStorage -> ', ulrStorage);
+        const snapshot = await this.storageService.uploadFile(folder, foto.name, foto);
+        const url = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
+        console.log('url -> ', url);
+        
         let profile: Models.Auth.UpdateProfileI = {
           displayName: data.name,
-          photoURL: data.photo
+          photoURL: snapshot.ref.fullPath
         };
         // https://www.shutterstock.com/image-vector/young-smiling-man-avatar-brown-600nw-2261401207.jpg'
         // https://cdn.pixabay.com/photo/2021/01/04/10/37/icon-5887113_1280.png
         // https://static.vecteezy.com/system/resources/previews/001/993/889/non_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg
         await this.authenticationService.updateProfile(profile);
+
         const datosUser: Models.Auth.UserProfile = {
           name: data.name,
-          photo: data.photo,
+          photo: snapshot.ref.fullPath,
           age: data.age,
           id: res.user.uid,
           email: data.email,
@@ -80,7 +135,7 @@ export class RegistroComponent  implements OnInit {
       } catch (error) {
         console.log('registrarse error -> ', error);
       }
-    }
+    // }
     this.cargando = false;
   }
 
@@ -98,11 +153,11 @@ export class RegistroComponent  implements OnInit {
               // console.log('snapshot -> ', snapshot); 
               // const url = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
               // console.log('url -> ', url);
-              return;
 
               // subir y ver el progreso
               const s = this.storageService.uploadFileProgress(folder, file.name, file).subscribe( res => {
                   console.log('uploadFileProgress -> ', res);
+
                   if (res.progress) {
                     this.progress = res.progress.toFixed(2);
                     console.log('this.progress -> ', this.progress);
@@ -110,6 +165,8 @@ export class RegistroComponent  implements OnInit {
                   }
                   if (res.type == 'complete') {
                     s.unsubscribe();
+                    console.log('res.url -> ', res.url);
+                     
                   }
               });
     
@@ -122,20 +179,35 @@ export class RegistroComponent  implements OnInit {
   async viewPreview(input: HTMLInputElement) {
     if (input.files.length) {
         const files = input.files;
-        const url = this.storageService.fileToUlr(files.item(0));
-        this.datosForm.controls.photo.setValue(url);
-        this.nameImage = files.item(0).name;
+        console.log('viewPreview files -> ', files);
+        const img: any = files.item(0)
+        this.datosForm.controls.photo.setValue(img);
+        console.log('this.datosForm.controls.photo -> ', this.datosForm.controls.photo.value);
 
-
-        // const blob = await this.storageService.urlToBlob(url);
-        // const folder = `PhotoPerfil/938dhdh37347j`;
-        // const name = files.item(0).name;
-        // const snapshot = await this.storageService.uploadFile(folder, name, blob);
-        // const ulrStorage = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
-        // this.datosForm.controls.photo.setValue(ulrStorage);
-        // console.log('ulrStorage -> ', ulrStorage);
     }
   }
+
+  async save() {
+    const folder = 'PhotosPerfil/demo';
+    // subir y esperar una promesa
+    console.log('guardando...');
+    const snapshot = await this.storageService.uploadFile(folder, this.file.name, this.file)
+    console.log('snapshot -> ', snapshot);     
+    const url = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
+    console.log('url -> ', url);
+    console.log('guardado con éxito');
+  }
+
+  async view(path: string) {
+      const url = await this.storageService.getDownloadURL(path);
+      Browser.open({url})
+  }
+
+  download(path: string) {
+    this.storageService.downloadFile(path)
+  }
+
+
 
 
 }

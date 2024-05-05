@@ -10,9 +10,9 @@
         <h3> <i>Bienvienido</i> </h3>
         @if (user.photoURL) {
           <div>
-            @if(!newImage) {
-              <img [src]="user.photoURL">
-            } @else {
+             @if(!newImage) {
+              <img [src]="user.photoURL | reftourl | async ">
+            } @else { 
               <img [src]="newImage | filetourl">
             }
           </div>
@@ -20,7 +20,9 @@
 
           <input #files (change)="viewPreview(files)" type="file" 
                  style='display: none;' accept="image/*">
+
           <button (click)="files.click()">editar</button>
+
           @if (newImage) {
             <button (click)="editarProfilePicture()">subir</button>
           }

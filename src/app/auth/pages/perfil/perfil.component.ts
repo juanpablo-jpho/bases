@@ -220,10 +220,10 @@ export class PerfilComponent  implements OnInit {
     const folder = `PhotosPerfil/${this.user.uid}`;
     const name = this.newImage.name;
     const snapshot = await this.storageService.uploadFile(folder, name, this.newImage)
-    const url = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
-    await this.authenticationService.updateProfile({photoURL: url});
+    // const url = await this.storageService.getDownloadURL(snapshot.ref.fullPath);
+    await this.authenticationService.updateProfile({photoURL: snapshot.ref.fullPath});
     const updateDoc: any = {
-      photo: url
+      photo: snapshot.ref.fullPath
     }
     await this.firestoreService.updateDocument(`${Models.Auth.PathUsers}/${this.user.uid}`, updateDoc);
     this.user = this.authenticationService.getCurrentUser(); 
