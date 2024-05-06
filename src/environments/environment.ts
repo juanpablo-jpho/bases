@@ -19,7 +19,8 @@ export const environment = {
     // storageBucket: "otra-app-645d0.appspot.com",
     // messagingSenderId: "516062405375",
     // appId: "1:516062405375:web:0ac4708e772b62f5b322ca"
-  }
+  },
+  uid: '39299848'
 };
 
 /*

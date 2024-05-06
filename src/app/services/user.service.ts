@@ -17,6 +17,7 @@ export class UserService {
   private user: User;
   private userProfile: Models.Auth.UserProfile;
   private login: 'login' | 'not-login' ;
+  private roles: any;
 
   validateHasProfile: boolean = true;
 
@@ -101,11 +102,17 @@ export class UserService {
   }
 
   async getRol() {    
-    const tokenResult = await this.user.getIdTokenResult(true);
-    // console.log('tokenResult -> ', tokenResult);
-    const claims: any = tokenResult.claims;
-    if (claims.roles) {
-      return claims.roles
+    if (this.roles) {
+      return this.roles
+    } 
+    if (this.user) {
+      const tokenResult = await this.user.getIdTokenResult(true);
+      // console.log('tokenResult -> ', tokenResult);
+      const claims: any = tokenResult.claims;
+      if (claims.roles) {
+        this.roles = claims.roles;
+        return claims.roles
+      }
     }
     return null;
   }

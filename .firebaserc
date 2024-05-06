@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "basesfire"
-  }
+  },
+  "targets": {
+    "basesfire": {
+      "hosting": {
+        "cliente": [
+          "basesfire"
+        ],
+        "admin": [
+          "admin-basesfire"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
