@@ -14,6 +14,7 @@ import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { FileSaverModule } from 'ngx-filesaver';
 import { ScreenTrackingService, getAnalytics, provideAnalytics, UserTrackingService } from '@angular/fire/analytics';
+import { Capacitor } from '@capacitor/core';
 
 
 if (environment.production) {
@@ -31,12 +32,14 @@ bootstrapApplication(AppComponent, {
     // firebase
     importProvidersFrom(provideFirebaseApp(() => {
       const app = initializeApp(environment.firebaseConfig);
+      if (Capacitor.isNativePlatform()) {
         initializeFirestore(app, {
           localCache: persistentLocalCache(),
         });
         initializeAuth(app, {
           persistence: indexedDBLocalPersistence
         });
+      }
       return app;
     })),
     importProvidersFrom(provideFirestore(() => getFirestore())),

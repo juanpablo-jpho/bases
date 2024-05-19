@@ -62,12 +62,12 @@ export class LoginComponent  implements OnInit {
       this.enableLoginWithEmailAndPassword = true;
       return;
     }
-    // this.authenticationService.loginWithProvider(provider.id)
-    const token = await this.authenticationService.getTokenOfProvider(provider.id);
-    console.log(`token: ${token} para hacer el login con -> ${provider.id}`);
+    this.authenticationService.loginWithProvider(provider.id)
+    // const token = await this.authenticationService.getTokenOfProvider(provider.id);
+    // console.log(`token: ${token} para hacer el login con -> ${provider.id}`);
     
-    await this.authenticationService.loginWithTokenOfProvider(provider.id, token);
-    this.router.navigate(['user', 'perfil'])
+    // await this.authenticationService.loginWithTokenOfProvider(provider.id, token);
+    // this.router.navigate(['user', 'perfil'])
 
   }
 
